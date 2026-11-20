@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to tag MT5 trades by economic calendar events</title>
+<meta name="description" content="Find which high-importance economic events (CPI, NFP, FOMC) happened near the entry or exit of each MetaTrader 5 trade, with MQL5 code and the daylight saving pitfall of the built-in calendar.">
+<link rel="canonical" href="https://lapdawgg.github.io/eventrlens/guide-calendar-tags.html">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#181a1f">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Event R Lens">
+<meta property="og:title" content="How to tag MT5 trades by economic calendar events">
+<meta property="og:description" content="Find which high-importance economic events (CPI, NFP, FOMC) happened near the entry or exit of each MetaTrader 5 trade, with MQL5 code and the daylight saving pitfall of the built-in calendar.">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://lapdawgg.github.io/eventrlens/guide-calendar-tags.html">
+<meta property="og:image" content="https://lapdawgg.github.io/eventrlens/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Event R Lens: Your MT5 trades, broken down by economic event, session and fix window.">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">Event R Lens</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html" aria-current="page">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
+<main class="wrap">
+<h1>How to tag MT5 trades by economic calendar events</h1>
+<p>To tag a MetaTrader 5 trade with economic events, read the built-in calendar with <code>CalendarValueHistory</code> for the symbol's currency, keep the high-importance events, convert both the event times and the trade time to UTC, and keep the events within a window (for example 15 minutes) of the entry or the exit. Match events by their <code>event_code</code>, not by their name.</p>
+<h2 id="why-the-time-conversion-matters">Why the time conversion matters</h2>
+<p>The calendar returns event times in the broker's server time, shifted by the server's offset at the moment you read it, not the offset that was valid on the day of the event. Many brokers run on New York time + 7 hours: GMT+2 in winter and GMT+3 while the US is on daylight saving time. Read a summer event in winter and it comes out one hour early. Convert the event with today's offset, and the trade with the offset of its own date.</p>
+<h2 id="mql5-code">MQL5 code</h2>
+<pre><code>// US daylight saving: 2nd Sunday of March 07:00 UTC to 1st Sunday of November 06:00 UTC.
+datetime NthSunday(const int year, const int month, const int n)
+  {
+   MqlDateTime t;
+   ZeroMemory(t);
+   t.year = year; t.mon = month; t.day = 1;
+   datetime first = StructToTime(t);
+   TimeToStruct(first, t);
+   return first + ((7 - t.day_of_week) % 7 + 7 * (n - 1)) * 86400;
+  }
+bool UsDst(const datetime utc)
+  {
+   MqlDateTime t;
+   TimeToStruct(utc, t);
+   return utc &gt;= NthSunday(t.year, 3, 2) + 7 * 3600 &amp;&amp; utc &lt; NthSunday(t.year, 11, 1) + 6 * 3600;
+  }
+// Server time to UTC for a broker on New York time + 7 hours.
+datetime ServerToUtc(const datetime server)
+  {
+   datetime summer = server - 3 * 3600;
+   return UsDst(summer) ? summer : server - 2 * 3600;
+  }
+// The server's offset now, rounded to 30 minutes.
+int ServerOffsetNow()
+  {
+   return (int)(MathRound((double)(TimeTradeServer() - TimeGMT()) / 1800.0) * 1800);
+  }
+// Print the high-importance events of a currency within window_min minutes of a trade moment.
+void EventsNear(const datetime trade_server_time, const string currency, const int window_min)
+  {
+   datetime trade_utc = ServerToUtc(trade_server_time);
+   int      now_off   = ServerOffsetNow();
+   MqlCalendarValue v[];
+   if(CalendarValueHistory(v, trade_utc + now_off - 86400, trade_utc + now_off + 86400, NULL, currency) &lt; 0)
+     {
+      Print(&quot;Calendar not available, error &quot;, GetLastError());
+      return;
+     }
+   for(int i = 0; i &lt; ArraySize(v); i++)
+     {
+      MqlCalendarEvent ev;
+      if(!CalendarEventById(v[i].event_id, ev) || ev.importance != CALENDAR_IMPORTANCE_HIGH) continue;
+      datetime ev_utc = v[i].time - now_off;           // calendar time uses today's offset
+      if(MathAbs((double)(ev_utc - trade_utc)) &lt;= window_min * 60)
+         PrintFormat(&quot;%s %s at %s UTC&quot;, currency, ev.event_code, TimeToString(ev_utc));
+     }
+  }</code></pre>
+<p>Call it for the entry and for the exit, and for each currency of the symbol. Gold, US indices and Bitcoin react to US events, so use USD for them; a currency pair uses both its currencies.</p>
+<h2 id="pitfalls">Pitfalls</h2>
+<ul><li><strong>Names are translated.</strong> <code>MqlCalendarEvent.name</code> comes in the terminal's language. <code>event_code</code> does not: for example <code>nonfarm-payrolls</code>, <code>consumer-price-index-mm</code> and <code>fed-interest-rate-decision</code>.</li>
+<li><strong>Several releases in one minute.</strong> CPI month on month, year on year and core CPI come out together. Count them as one event, or every CPI trade is counted three times.</li>
+<li><strong>Just after start.</strong> For a few seconds after the terminal starts, <code>TimeTradeServer()</code> can return GMT, which gives an offset of 0. Check the offset against your broker's model before using it.</li>
+<li><strong>No calendar.</strong> On some networks the terminal cannot reach the calendar service and <code>CalendarValueHistory</code> fails (we saw error 5401). One failed request can block for about 50 seconds, so do not retry it for every trade. In the Strategy Tester the calendar functions are not available (error 4014).</li>
+<li><strong>Other brokers.</strong> If your broker's server time follows other rules, replace <code>ServerToUtc</code> with its model.</li></ul>
+<p>Event R Lens tags every trade this way and breaks down your results by event, session and fix window.</p>
+</main>
+<footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-20.</p></div></footer>
+</body>
+</html>

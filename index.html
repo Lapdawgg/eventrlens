@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Break down your MT5 trades by economic event, session and fix window</title>
+<meta name="description" content="Event R Lens is a read-only MetaTrader 5 panel that breaks down your own closed trades by economic event, session, fix window, symbol and direction, with the R multiple, MAE and MFE of every trade.">
+<link rel="canonical" href="https://lapdawgg.github.io/eventrlens/">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#181a1f">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Event R Lens">
+<meta property="og:title" content="Break down your MT5 trades by economic event, session and fix window">
+<meta property="og:description" content="Event R Lens is a read-only MetaTrader 5 panel that breaks down your own closed trades by economic event, session, fix window, symbol and direction, with the R multiple, MAE and MFE of every trade.">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://lapdawgg.github.io/eventrlens/">
+<meta property="og:image" content="https://lapdawgg.github.io/eventrlens/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Event R Lens: Your MT5 trades, broken down by economic event, session and fix window.">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Event R Lens","applicationCategory":"FinanceApplication","operatingSystem":"Windows","softwareRequirements":"MetaTrader 5","softwareVersion":"1.00","description":"Breaks down your own closed trades by economic event, session, fix window, symbol and direction, with the R multiple, MAE and MFE of every trade.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":"https://lapdawgg.github.io/eventrlens/og.png"},{"@type":"SoftwareApplication","name":"Event R Lens Pro","applicationCategory":"FinanceApplication","operatingSystem":"Windows","softwareRequirements":"MetaTrader 5","softwareVersion":"1.00","description":"Breaks down your own closed trades by economic event, session, fix window, symbol, direction and your own tags. Adds a combination query, a Big R finder, a replay of your past R sequence, a prop news rule audit and Strategy Tester report import.","image":"https://lapdawgg.github.io/eventrlens/og.png"}]}</script>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">Event R Lens</a><nav><a href="index.html" aria-current="page">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
+<main class="wrap">
+<h1>Break down your MT5 trades by economic event, session and fix window</h1>
+<p>Event R Lens is a read-only panel for MetaTrader 5. It breaks down your own closed trades by economic event (CPI, NFP, FOMC and others), session, Tokyo and London fix window, symbol and direction, and shows the R multiple, MAE and MFE of every trade. It never opens, changes or closes orders, uses no network and no DLL, and does not forecast.</p>
+<h2 id="what-it-does">What it does</h2>
+<ul><li>Builds trades from the account history: partial closes, netting reversals, separate commission deals and swaps</li>
+<li>R multiple of every trade from its initial stop loss; optional 1R rule for trades without a stop loss</li>
+<li>MAE and MFE of every trade in price, money and R</li>
+<li>Spread at entry and slippage</li>
+<li>Tags: high-importance economic event (NFP, CPI, FOMC and others), session, Tokyo and London fix</li>
+<li>Breakdown tables by event, session, fix, symbol and direction</li>
+<li>Trade list with every input of every calculation</li>
+<li>Audit CSV export of every input and result</li>
+<li>Reconcile view: totals compared with the account balance</li></ul>
+<h2 id="what-it-does-not-do">What it does not do</h2>
+<ul><li>Does not open, change or close orders or positions. The source code contains no trade functions.</li>
+<li>Does not use the network, WebRequest or DLLs.</li>
+<li>Does not forecast. Every number describes past trades.</li>
+<li>Does not collect personal data. It writes only to MQL5 &gt; Files &gt; EventRLens: your display settings, an SL journal of positions opened while the panel runs, and the CSV exports you ask for. Event R Lens Pro also writes the saved queries, manual tags and share cards you ask for.</li></ul>
+<h2 id="who-it-is-for">Who it is for</h2>
+<ul><li><strong>Gold, Nasdaq and Bitcoin traders.</strong> XAUUSD, US indices such as USTEC and BTCUSD are tagged with US events, because their price reacts to them. Currency pairs get the events of both currencies.</li>
+<li><strong>Traders around fixes.</strong> Trades opened or closed within 10 minutes of the Tokyo fix (09:55 JST) or the London fix (16:00 London time) carry a fix tag.</li>
+<li><strong>Prop firm traders.</strong> The panel only reads the account, so it works on any MetaTrader 5 account. Event R Lens Pro can check past trades against a news rule you enter.</li>
+<li><strong>Anyone who wants to check their own numbers.</strong> Every input of every calculation is in the audit CSV.</li></ul>
+<h2 id="event-r-lens-and-event-r-lens-pro">Event R Lens and Event R Lens Pro</h2>
+<div class="table"><table>
+<thead><tr><th>Feature</th><th>Event R Lens</th><th>Event R Lens Pro</th></tr>
+</thead><tbody><tr><td>Builds trades from the account history: partial closes, netting reversals, separate commission deals and swaps</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>R multiple of every trade from its initial stop loss; optional 1R rule for trades without a stop loss</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>MAE and MFE of every trade in price, money and R</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Spread at entry and slippage</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Tags: high-importance economic event (NFP, CPI, FOMC and others), session, Tokyo and London fix</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Breakdown tables by event, session, fix, symbol and direction</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Trade list with every input of every calculation</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Audit CSV export of every input and result</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Reconcile view: totals compared with the account balance</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Combination query: symbol, direction, event, session, fix, tag, weekdays and entry hours, with saved queries</td><td>-</td><td>Yes</td></tr>
+<tr><td>Big R finder: which labels are over-represented among your biggest winners and losers (lift table)</td><td>-</td><td>Yes</td></tr>
+<tr><td>Replay of your past R sequence at a chosen risk, with 10,000 reshuffles of the same trades</td><td>-</td><td>Yes</td></tr>
+<tr><td>Prop news rule audit with a rule you enter: trades in the news window and profit at risk</td><td>-</td><td>Yes</td></tr>
+<tr><td>Strategy Tester report import, shown as a simulated dataset and never mixed with the account history</td><td>-</td><td>Yes</td></tr>
+<tr><td>Your own tags from comment keywords and magic numbers</td><td>-</td><td>Yes</td></tr>
+<tr><td>Share card: a PNG of a query result without account number, broker or money amounts</td><td>-</td><td>Yes</td></tr>
+<tr><td>Price</td><td>Free</td><td>To be decided</td></tr>
+</tbody></table></div>
+<p>Both are Expert Advisors in the MQL5 Market category Utilities, version 1.00. Event R Lens is free. Event R Lens Pro: To be decided.</p>
+<p>Both will be available on the MQL5 Market; the links are added here when they are published.</p>
+<h2 id="how-to-check-it">How to check it</h2>
+<p>You can check in about five minutes that the panel only reads your account: see <a href="verify.html">Verify in 5 minutes</a>. Every formula is on the <a href="formulas.html">Formulas</a> page.</p>
+<h2 id="known-limitations">Known limitations</h2>
+<ul><li>MAE and MFE come from M1 bars and are approximate; tick data is used where the broker provides it.</li>
+<li>MAE and MFE need the terminal's M1 history. Trades older than it (Tools &gt; Options &gt; Charts &gt; Max bars in chart) show no MAE and MFE, and the panel counts them.</li>
+<li>1R uses current conversion rates for symbols not quoted in the account currency.</li>
+<li>A stop loss set after entry is known only if the panel was running at that time.</li>
+<li>Economic calendar times are corrected for daylight saving with the broker time model (default: New York + 7 h).</li>
+<li>The economic calendar may not be reachable on some networks; event tags are then off and the panel says so.</li>
+<li>The economic calendar is not available in the Strategy Tester.</li></ul>
+</main>
+<footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-20.</p></div></footer>
+</body>
+</html>

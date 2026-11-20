@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event R Lens formulas: R multiple, MAE, MFE, event tags and statistics</title>
+<meta name="description" content="Exact definitions of every number in Event R Lens for MetaTrader 5: trades from deals, 1R and R multiple, MAE and MFE, spread, slippage, event tags, sessions, fix windows, statistics and Pro calculations.">
+<link rel="canonical" href="https://lapdawgg.github.io/eventrlens/formulas.html">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#181a1f">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Event R Lens">
+<meta property="og:title" content="Event R Lens formulas: R multiple, MAE, MFE, event tags and statistics">
+<meta property="og:description" content="Exact definitions of every number in Event R Lens for MetaTrader 5: trades from deals, 1R and R multiple, MAE and MFE, spread, slippage, event tags, sessions, fix windows, statistics and Pro calculations.">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://lapdawgg.github.io/eventrlens/formulas.html">
+<meta property="og:image" content="https://lapdawgg.github.io/eventrlens/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Event R Lens: Your MT5 trades, broken down by economic event, session and fix window.">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">Event R Lens</a><nav><a href="index.html">Home</a> <a href="formulas.html" aria-current="page">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
+<main class="wrap">
+<h1>Event R Lens formulas: R multiple, MAE, MFE, event tags and statistics</h1>
+<p>Every number Event R Lens shows, and exactly how it is calculated, for engine version 1.00. The same definitions appear behind the i icons in the panel, and every input is in the audit CSV, so you can repeat any calculation. All times in the history are trade server time; the panel converts them to UTC with a server time model. Money is in the account currency.</p>
+<h2 id="0-server-time-model">0. Server time model</h2>
+<ul><li><strong>Default model &quot;NY+7&quot;:</strong> server time = New York time + 7 h.<ul><li>That is GMT+2 when the US is on standard time and GMT+3 during US daylight saving time.</li>
+<li>US DST runs from the 2nd Sunday of March 07:00 UTC to the 1st Sunday of November 06:00 UTC.</li>
+<li>This was verified for IC Markets, including the weeks when US and EU clocks differ.</li></ul>
+</li>
+<li><strong>Other models:</strong> fixed offset, or &quot;EU DST&quot; (base offset + 1 h from the last Sunday of March 01:00 UTC to the last Sunday of October 01:00 UTC).</li>
+<li><strong>Calendar times:</strong> The MT5 economic calendar returns event times shifted by the server's offset *at the moment of reading*. Event UTC = calendar time − current server offset. The current offset is <code>round((TimeTradeServer() − TimeGMT()) / 30 min)</code> and is used only when it matches the model.</li></ul>
+<h2 id="1-trades-from-deals">1. Trades from deals</h2>
+<ul><li><strong>Grouping:</strong> Deals of type BUY or SELL are grouped by <code>DEAL_POSITION_ID</code>.</li>
+<li><strong>Direction:</strong> The type of the first entry deal sets the direction.</li>
+<li><strong>Entry price:</strong> Volume-weighted average of the entry deals.</li>
+<li><strong>Exit price:</strong> Volume-weighted average of the exit deals (OUT and OUT_BY).</li>
+<li><strong>Times:</strong> Entry time = first entry deal. Exit time = last exit deal.</li>
+<li><strong>Partial closes:</strong> Belong to one trade.</li>
+<li><strong>Netting reversal (INOUT):</strong><ul><li>The deal closes the open volume and opens the rest in the opposite direction. This becomes two trades: <code>&lt;id&gt;</code> and <code>&lt;id&gt;-2</code>.</li>
+<li>The deal's profit goes to the closing part.</li>
+<li>Its swap, commission and fee are split by volume.</li></ul>
+</li>
+<li><strong>Separate charge deals:</strong> Other deals that carry the same position id (e.g. a commission charged as a separate deal) are added to that trade.</li>
+<li><strong>Net result</strong> = profit + swap + commission + fee.</li>
+<li><strong>Open positions:</strong> Shown, but never counted in statistics.</li></ul>
+<h2 id="2-initial-risk-1r">2. Initial risk, 1R</h2>
+<ul><li><strong>SL:</strong> The SL of the <strong>first entry deal</strong> (<code>DEAL_SL</code>, which MT5 copies from the opening order).<ul><li>MT5 does not store later SL changes.</li>
+<li>The SL on the exit deal is the SL at the moment of closing, so it is not used.</li></ul>
+</li>
+<li><strong>1R money</strong> = |loss| if the first entry volume had been closed at that SL. Formula: <code>OrderCalcProfit(type, symbol, first volume, first entry price, SL)</code>.<ul><li>The conversion uses current market rates. For USD-quoted symbols on a USD account (XAUUSD, USTEC, BTCUSD) it is exact. For crosses and JPY pairs it can differ slightly from the historical value.</li>
+<li>If <code>OrderCalcProfit</code> fails, tick value × ticks is used and the trade carries the flag <code>risk_from_tick_value</code>.</li>
+<li>A result of 0 for a non-zero move means MetaTrader has no quotes yet (for example right after the terminal starts). It is treated as unknown, never as 0. A trade with a stop loss but no priced 1R carries the flag <code>risk_no_price_data</code>. The panel waits up to 60 s for the terminal to connect before it calculates.</li></ul>
+</li>
+<li><strong>No SL on the entry deal:</strong><ul><li>If the panel recorded the SL later (forward journal), that SL is used (flag <code>sl_from_journal</code>).</li>
+<li>Otherwise the user's fallback applies: a fixed money amount, or a % of the balance at entry. The trade is then marked <code>r_estimate</code>.</li>
+<li>With no fallback the trade has no R.</li></ul>
+</li>
+<li><strong>Balance at entry</strong> = sum of all deal results (deposits included) before the entry moment.</li>
+<li><strong>R multiple</strong> = net result / 1R money.</li></ul>
+<h2 id="3-mae-and-mfe">3. MAE and MFE</h2>
+<ul><li><strong>Excursions</strong> (in price units, never negative):<ul><li><strong>LONG:</strong> MAE = entry − lowest price, MFE = highest price − entry.</li>
+<li><strong>SHORT:</strong> MAE = highest price − entry, MFE = entry − lowest price.</li></ul>
+</li>
+<li><strong>M1 mode (default):</strong><ul><li>Bars from the minute of entry to the minute of exit, both included.</li>
+<li>LONG uses bid bars.</li>
+<li>SHORT uses ask approximated as bid + the bar's spread (flag <code>short_ask_from_bar_spread</code>).</li>
+<li>The first and last bars include prices from before entry and after exit, so M1 values are approximate (flag <code>excursion_m1_approx</code>).</li></ul>
+</li>
+<li><strong>Tick mode (optional):</strong> Every tick between entry and exit; LONG uses bid, SHORT uses ask. Falls back to M1 when ticks are missing or the trade is longer than 24 h.</li>
+<li><strong>Money:</strong> The price move applied to the total volume from the weighted entry price, through the same conversion as 1R.</li>
+<li><strong>In R:</strong> MAE money / 1R money.</li></ul>
+<h2 id="4-spread-at-entry">4. Spread at entry</h2>
+<ul><li><strong>From ticks:</strong> ask − bid of the tick nearest to the entry moment, within 60 s. If two ticks are equally near, the earlier one wins.</li>
+<li><strong>Without ticks:</strong> The M1 bar's spread × point (flag <code>spread_from_bar</code>).</li>
+<li><strong>Two passes:</strong> The engine first fills every trade from M1 data (fast). A second pass then replaces spread, market-order slippage and, if enabled, MAE/MFE with tick-based values where ticks exist. It runs newest trades first, in the background, with progress shown. A tick request costs about 0.03–0.1 s in MT5. Until a trade is refined it keeps the M1-based value and its flag.</li></ul>
+<h2 id="5-slippage">5. Slippage</h2>
+<ul><li><strong>Sign:</strong> Positive = worse for the trader. Buy: fill − reference. Sell: reference − fill.</li>
+<li><strong>Pending orders:</strong> The reference is the order price.</li>
+<li><strong>Market orders:</strong><ul><li>If the broker stored a requested price, that is the reference.</li>
+<li>Otherwise the reference is the quote at the order's setup time (ask for buy, bid for sell; flag <code>slippage_vs_quote</code>). IC Markets stores 0 for market orders.</li></ul>
+</li></ul>
+<h2 id="6-event-tags">6. Event tags</h2>
+<ul><li><strong>Which events:</strong> High-importance calendar events whose time is in [moment − X, moment + Y] for the entry or the exit (default X = Y = 15 min).</li>
+<li><strong>Currencies:</strong> The symbol's fiat currencies: base and profit currency, if they are fiat. XAUUSD, USTEC and BTCUSD → USD. EURUSD → EUR and USD.</li>
+<li><strong>Matching:</strong> By the language-independent event code, not by the name; the name comes in the terminal language.</li>
+<li><strong>Label:</strong> Currency + short label, e.g. &quot;USD NFP&quot;, &quot;USD CPI&quot;, &quot;USD FOMC&quot;.</li>
+<li><strong>Other events:</strong> A readable title made from the code, e.g. &quot;USD EIA Crude Oil Stocks Change&quot;; period suffixes (m/m, y/y, q/q) are dropped.</li>
+<li><strong>Same minute:</strong> Events in the same minute appear once per label. CPI m/m, y/y and core all become one &quot;USD CPI&quot;.</li>
+<li><strong>Audit CSV:</strong> Records the event times in server time, the offset in minutes from the matched moment, and which side matched (entry, exit, or both).</li>
+<li><strong>Calendar unavailable:</strong> If the calendar does not answer (e.g. error 5401 on some networks), event tags are off and the panel says so.</li></ul>
+<h2 id="7-session">7. Session</h2>
+<p>Label of the <strong>entry</strong> time, using local clocks with their own daylight saving rules:</p>
+<div class="table"><table>
+<thead><tr><th>Session</th><th>Local hours</th></tr>
+</thead><tbody><tr><td>Asia</td><td>Tokyo 09:00–18:00</td></tr>
+<tr><td>London</td><td>London 08:00–17:00</td></tr>
+<tr><td>New York</td><td>New York 08:00–17:00</td></tr>
+</tbody></table></div>
+<ul><li><strong>Precedence:</strong> London-NY overlap &gt; London &gt; New York &gt; Asia &gt; Off-hours.</li>
+<li><strong>Crypto weekend:</strong> Crypto symbols get &quot;Weekend&quot; from Friday 17:00 to Sunday 17:00 New York time.</li></ul>
+<h2 id="8-fix-windows">8. Fix windows</h2>
+<ul><li><strong>Windows:</strong> Tokyo 09:55 JST and London 16:00 London time, ±10 min, on weekdays.</li>
+<li><strong>Tagging:</strong> A trade is tagged when its entry or exit falls inside the window. Holding through a fix is not tagged.</li></ul>
+<h2 id="9-user-tags">9. User tags</h2>
+<ul><li><strong>Sources:</strong><ul><li>A keyword found in the entry comment (case-insensitive). Pro input: &quot;news, breakout&quot;; the tag is the keyword.</li>
+<li>A magic number. Pro input: &quot;12345=Breakout, 777&quot;; the tag is the name, or &quot;magic:777&quot;.</li>
+<li>Manual tags typed in the trade detail popup (Pro, account history only), stored in <code>MQL5\Files\EventRLens\&lt;server&gt;_&lt;login&gt;_tags.txt</code> when you press Enter. Comma separated; a &quot;|&quot; inside a tag becomes &quot;/&quot;.</li></ul>
+</li>
+<li><strong>Duplicates:</strong> Removed.</li></ul>
+<h2 id="10-query-statistics">10. Query statistics</h2>
+<ul><li><strong>Filters:</strong> symbol, direction, event, session, fix, tag, weekday and hour of entry (server time). Only closed trades are counted.</li>
+<li><strong>Event, fix and tag filters:</strong><ul><li>&quot;any&quot;: no filter.</li>
+<li>&quot;*&quot;: any non-empty value.</li>
+<li>&quot;-&quot;: none.</li>
+<li>Or a specific value.</li></ul>
+</li>
+<li><strong>Outcome:</strong> Win if R &gt; 0.05, loss if R &lt; −0.05, else breakeven. Without R, the sign of the net result is used.</li>
+<li><strong>Hit rate</strong> = wins / N.</li>
+<li><strong>Mean R, median R:</strong> Over trades with R. Expected R = mean R.</li>
+<li><strong>95% CI of mean R:</strong> Percentile bootstrap, 2,000 resamples, fixed seed, so it is reproducible.</li>
+<li><strong>Max MAE:</strong> Largest MAE in R and in money.</li>
+<li><strong>Longest losing streak:</strong> Consecutive losses by exit time; a breakeven ends the streak.</li>
+<li><strong>Total net:</strong> Sum of net results.</li>
+<li><strong>Estimated R:</strong> Trades with an estimated 1R are counted and shown separately. They can be excluded.</li>
+<li><strong>Sample warnings:</strong><ul><li>N &lt; 30: &quot;small sample&quot;.</li>
+<li>Fewer than 10 trades with R: no mean, median or CI; the raw list only.</li></ul>
+</li></ul>
+<h2 id="11-reconcile">11. Reconcile</h2>
+<ul><li><strong>Balance check:</strong> Sum of every deal's profit + swap + commission + fee (deposits included) vs. <code>ACCOUNT_BALANCE</code>. With the full history selected the difference must be 0.00.</li>
+<li><strong>Split:</strong> The sum is split into trades and other deals (deposits, withdrawals, credits, unattached charges). This lets it be compared with the MT5 History tab.</li></ul>
+<h2 id="12-pro-big-r-finder">12. Pro: Big R finder</h2>
+<ul><li><strong>Trades used:</strong> Closed trades with a usable R (R estimates can be excluded).</li>
+<li><strong>Group:</strong> The top (or bottom) 10% or 20% of these trades by R, at least 1 trade: group size = ceil(fraction x N).</li>
+<li><strong>Threshold:</strong> The R of the last trade in the group (&quot;R at least&quot; for winners, &quot;R at most&quot; for losers).</li>
+<li><strong>Labels per trade:</strong> Event, session, fix, symbol, direction, weekday (server time of entry), hour of entry, user tag. A trade with two events or tags counts once for each.</li>
+<li><strong>Share in group</strong> = trades of the group with the label / group size.</li>
+<li><strong>Share of all</strong> = trades with the label / N.</li>
+<li><strong>Lift</strong> = share in group / share of all. Lift above 1: the label is more common among the biggest winners (or losers) than in general.</li>
+<li><strong>Listing:</strong> Labels with fewer than 2 trades in the group are not listed. Labels on every trade (lift always 1) are not listed. Sorted by lift, then by count in the group. Labels with fewer than 5 trades in the group are shown in yellow: their lift is unreliable.</li>
+<li>It describes past trades; it does not say why.</li></ul>
+<h2 id="13-pro-replay-and-reshuffles">13. Pro: Replay and reshuffles</h2>
+<ul><li><strong>R sequence:</strong> The R values of the selected closed trades, ordered by exit time.</li>
+<li><strong>Replay:</strong> Start at 100. After each trade: equity x (1 + risk% x R). If equity reaches 0, it stays 0 (&quot;ruin&quot;).</li>
+<li><strong>Max drawdown:</strong> The largest fall from a running peak, in % of that peak.</li>
+<li><strong>Longest losing streak:</strong> Most consecutive trades with R below -0.05 (the breakeven band).</li>
+<li><strong>Reshuffles:</strong> 10,000 random orders of the same R values (Fisher-Yates shuffle, xorshift64* with a fixed seed, so the numbers repeat). For each order: max drawdown and longest losing streak.</li>
+<li><strong>Percentiles:</strong> Value at position ceil(p x 10,000) of the sorted results (median, 90%, 95%, 99%).</li>
+<li><strong>Limit:</strong> Share of orders whose max drawdown reached the chosen limit. &quot;Equity reached 0&quot;: share of orders with ruin.</li>
+<li>Title on screen: &quot;Replay of your past trades. Not a forecast.&quot; Reshuffles reuse your own R values; they do not model future trades.</li></ul>
+<h2 id="14-pro-prop-news-rule-audit">14. Pro: Prop news rule audit</h2>
+<ul><li><strong>Rule (entered by the user):</strong> N minutes before and M minutes after a news event; applies to the open and/or the close of a trade; a winning trade in the window has its profit removed, or counted at X%.</li>
+<li><strong>Events:</strong> High-importance events of the MT5 economic calendar for the symbol's currencies (same mapping as section 6), times corrected to UTC with the server time model.</li>
+<li><strong>In the window:</strong> event - N min &lt;= trade moment &lt;= event + M min, checked for the open and/or the close.</li>
+<li><strong>Shown per trade:</strong> the nearest matching event, its server time, &quot;trade - event&quot; in minutes (negative = before the news), and the side (open, close, open+close).</li>
+<li><strong>Profit at risk:</strong> For a trade in the window with net &gt; 0: net (rule &quot;removed&quot;), or net x (1 - X/100) (rule &quot;counts at X%&quot;). Losing trades are listed but not changed.</li>
+<li><strong>Net after the rule</strong> = total net of all closed trades - profit at risk.</li>
+<li>This is not a database of firm rules. Firms may use other news sources and times.</li></ul>
+<h2 id="15-pro-strategy-tester-report-import">15. Pro: Strategy Tester report import</h2>
+<ul><li><strong>File:</strong> HTML report saved from the Strategy Tester, copied to <code>MQL5\Files\EventRLens\import\</code>. UTF-16 and UTF-8 are read.</li>
+<li><strong>Deals table:</strong> time, deal, symbol, type, direction (in, out, in/out, out by), volume, price, order, commission, swap, profit, balance, comment.</li>
+<li><strong>Orders table:</strong> the stop loss of each order. The SL of the order that opened a position is its initial SL (1R).</li>
+<li><strong>Position ids:</strong> The report has none. Positions are matched first in, first out per symbol; an exit deal that closes several positions is split by volume (profit, commission and swap in proportion).</li>
+<li><strong>Reconcile:</strong> The sum of all deals (deposit included) vs. the report's final balance; the report's totals row is also checked.</li>
+<li>Every imported trade carries the flag <code>simulated_tester_report</code>. The simulated set is never mixed with the account history. No tick refinement.</li></ul>
+<h2 id="16-pro-share-card">16. Pro: share card</h2>
+<ul><li>PNG, 1200 x 630, of the current query: N, wins/losses/breakeven, hit rate, mean R with its 95% range, median R, max MAE in R (with how many trades have MAE data), longest losing streak, a histogram of R in 0.5R buckets from -3R to +5R (values outside go to the end buckets), and the date range.</li>
+<li>No account number, broker or money amounts. Footer: &quot;N = ... closed trades. Past results, not a forecast.&quot; A simulated set is marked &quot;SIMULATED&quot;.</li>
+<li>Written as PNG by the panel itself; no external library or service is used.</li></ul>
+<h2 id="known-limitations">Known limitations</h2>
+<ul><li><strong>M1 approximation:</strong> MAE/MFE from M1 is approximate (edge bars; SHORT ask from bar spread).</li>
+<li><strong>M1 depth:</strong> The terminal keeps M1 bars only back to a limit (Tools &gt; Options &gt; Charts &gt; Max bars in chart; 100,000 bars is about 4 to 5 months). Older trades show no MAE/MFE and are counted as &quot;no price data&quot;. After 3 empty requests in a row for a symbol, older trades of that symbol are not requested again until Refresh.</li>
+<li><strong>Tick depth:</strong> Tick data at IC Markets reaches about 6 months back for USTEC/BTCUSD.</li>
+<li><strong>Conversion rates:</strong> 1R and excursion money use current conversion rates for non-USD-quoted symbols.</li>
+<li><strong>Unrecorded SLs:</strong> An SL set after entry is unknown unless the panel was running.</li>
+<li><strong>Calendar network:</strong> The economic calendar may not be reachable on some networks; event tags are then off.</li>
+<li><strong>Strategy Tester:</strong> The calendar is not available in the Strategy Tester.</li></ul>
+</main>
+<footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-20.</p></div></footer>
+</body>
+</html>

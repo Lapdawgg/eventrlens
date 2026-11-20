@@ -1,0 +1,36 @@
+/* Event R Lens documentation site. No JavaScript; light and dark follow the system setting. */
+:root {
+  --bg: #ffffff; --fg: #1f2328; --muted: #57606a; --line: #d0d7de; --panel: #f6f8fa;
+  --accent: #0969da; --code: #eff1f3;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #181a1f; --fg: #e7e9ed; --muted: #989faa; --line: #3e434f; --panel: #21242b; --accent: #4c9aff; --code: #292d36; }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+.wrap { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+header { border-bottom: 1px solid var(--line); background: var(--panel); }
+header .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; padding-top: 12px; padding-bottom: 12px; }
+.brand { display: inline-flex; align-items: center; gap: 9px; font-weight: 700; color: var(--fg); text-decoration: none; font-size: 18px; }
+.brand img { display: block; border-radius: 6px; }
+nav { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 15px; }
+nav a { color: var(--muted); text-decoration: none; }
+nav a:hover, nav a[aria-current="page"] { color: var(--accent); }
+main { padding-top: 8px; padding-bottom: 40px; }
+h1 { font-size: 30px; line-height: 1.25; margin: 28px 0 16px; }
+h2 { font-size: 22px; margin: 34px 0 10px; padding-top: 6px; border-top: 1px solid var(--line); }
+h3 { font-size: 18px; margin: 24px 0 8px; }
+p, ul, ol { margin: 0 0 14px; }
+li { margin: 3px 0; }
+a { color: var(--accent); }
+code { font: 14px/1.4 Consolas, "SFMono-Regular", Menlo, monospace; background: var(--code); padding: 1px 5px; border-radius: 4px; }
+pre { background: var(--code); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; overflow-x: auto; margin: 0 0 16px; font-size: 13.5px; line-height: 1.5; }
+pre code { background: none; padding: 0; font-size: 13.5px; line-height: 1.5; }
+.table { overflow-x: auto; margin: 0 0 16px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; }
+th { background: var(--panel); }
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; padding: 18px 0 30px; }
+footer p { margin: 0 0 6px; }
