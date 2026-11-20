@@ -171,6 +171,55 @@
 <ul><li>PNG, 1200 x 630, of the current query: N, wins/losses/breakeven, hit rate, mean R with its 95% range, median R, max MAE in R (with how many trades have MAE data), longest losing streak, a histogram of R in 0.5R buckets from -3R to +5R (values outside go to the end buckets), and the date range.</li>
 <li>No account number, broker or money amounts. Footer: &quot;N = ... closed trades. Past results, not a forecast.&quot; A simulated set is marked &quot;SIMULATED&quot;.</li>
 <li>Written as PNG by the panel itself; no external library or service is used.</li></ul>
+<h2 id="17-pro-event-radar">17. Pro: Event Radar</h2>
+<ul><li><strong>Events:</strong> High-importance events of the MT5 economic calendar for the next 8 days. Currencies come from the chart symbol and the open positions (same mapping as section 6). Times are converted to UTC as in section 0 and shown in server time. Reloaded every 30 minutes, or when the currencies change.</li>
+<li><strong>Same minute:</strong> Releases in the same minute with the same label (for example CPI m/m and y/y) are listed once.</li>
+<li><strong>Your past trades near an event:</strong> The query of section 10 with the event label as the event filter: once for the chart symbol, once for all symbols. &quot;Near&quot; means the event tag of section 6 (entry or exit within the event window). Mean R is shown only from 10 trades with R.</li>
+<li><strong>Alerts (optional):</strong> A terminal alert, the chosen minutes before:<ul><li>an event;</li>
+<li>the start of your news window when a position of a matching currency is open;</li>
+<li>80% of the daily loss limit used;</li>
+<li>the weekend start (Friday 24:00 server time) when positions are open and weekend holding is not allowed. Each alert is shown once. No push notifications, because the panel uses no network.</li></ul>
+</li>
+<li>Past results, not a forecast.</li></ul>
+<h2 id="18-pro-rule-simulator">18. Pro: Rule simulator</h2>
+<ul><li><strong>Trades used:</strong> Closed trades with R, in entry order.</li>
+<li><strong>Filters (remove trades):</strong><ul><li>Entry within ±N minutes of a high-importance event (section 14's window, applied to the open).</li>
+<li>A fix tag.</li>
+<li>Chosen sessions or weekdays (server time of entry).</li>
+<li>More than N entries in a server day (the first N are kept).</li>
+<li>Entries after N losing trades of the same day have closed.</li></ul>
+</li>
+<li><strong>Stop to entry at +X R:</strong><ul><li>The price at +X R is entry ± X × (first entry price − initial stop loss).</li>
+<li>If the M1 path reached it, and from the following bar on came back to the entry price before exit, the trade's R becomes its costs only: (commission + fee) / 1R.</li>
+<li>Inside one bar the order of high and low is unknown, so the return is looked for from the bar after the trigger.</li></ul>
+</li>
+<li><strong>Close half at +X R:</strong><ul><li>If the trade's MFE reached X R, half of it counts X R and the other half its real result (or the stop-to-entry result).</li></ul>
+</li>
+<li><strong>Statistics:</strong> Section 10, plus:<ul><li>total R;</li>
+<li>max drawdown of a 1% replay (section 13);</li>
+<li>mean R of the first and second half of the trades in time.</li></ul>
+</li>
+<li><strong>Each rule on its own:</strong> The same, with only that rule. &quot;Better in both halves&quot; means mean R is higher than without the rule in both halves.</li>
+<li><strong>Caveat:</strong> In-sample, so the rules are tested on the trades that suggested them. With several rules tried, a difference inside the 95% range can be chance. Not a forecast.</li></ul>
+<h2 id="19-pro-prop-guard">19. Pro: Prop Guard</h2>
+<ul><li><strong>Rules:</strong> The user enters the numbers from the firm's current terms in the inputs: account size (or the first deposit), daily loss %, max loss % (static or trailing), the hour the trading day starts (server time), consistency %, risk per trade %, no weekend holding. The news window is section 14. Not a database of firm rules.</li>
+<li><strong>Daily loss, history:</strong><ul><li>The closed net result of each trading day is compared with −(daily loss % × account size).</li>
+<li>The first trade that crosses it is listed.</li>
+<li>Floating losses during a day are not in the history.</li></ul>
+</li>
+<li><strong>Daily loss, live:</strong><ul><li>Used = closed balance at the start of the trading day − equity now (0 if positive).</li>
+<li>Left = limit − used.</li></ul>
+</li>
+<li><strong>Max loss:</strong><ul><li>Static floor = account size − max loss % × size.</li>
+<li>Trailing floor = highest balance − max loss % × size.</li>
+<li>History compares the closed balance after each trade; live compares equity.</li></ul>
+</li>
+<li><strong>Consistency:</strong> Top day (the largest net result of a trading day) / total net profit, compared with the limit (only when the total is positive).</li>
+<li><strong>Risk per trade:</strong><ul><li>History: 1R of a trade (section 2) / account size. R estimates are not counted.</li>
+<li>Live: the money at an open position's stop loss / account size.</li></ul>
+</li>
+<li><strong>Weekend holding:</strong> A position open over a Saturday (server time).</li>
+<li><strong>Measurement differences:</strong> Firms measure in different ways (for example the higher of balance and equity at the day start, or another reset time). The panel says so and never closes positions.</li></ul>
 <h2 id="known-limitations">Known limitations</h2>
 <ul><li><strong>M1 approximation:</strong> MAE/MFE from M1 is approximate (edge bars; SHORT ask from bar spread).</li>
 <li><strong>M1 depth:</strong> The terminal keeps M1 bars only back to a limit (Tools &gt; Options &gt; Charts &gt; Max bars in chart; 100,000 bars is about 4 to 5 months). Older trades show no MAE/MFE and are counted as &quot;no price data&quot;. After 3 empty requests in a row for a symbol, older trades of that symbol are not requested again until Refresh.</li>
