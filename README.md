@@ -4,7 +4,7 @@
 
 **Your MT5 trades, broken down by economic event, session and fix window.**
 
-Breaks down your own closed trades by economic event, session, fix window, symbol and direction, with the R multiple, MAE and MFE of every trade. A read-only panel. It never opens, changes or closes orders.
+Shows the R multiple, MAE and MFE of every closed trade and the economic event and fix window near it, and breaks your results down by session, symbol and direction. A read-only panel. It never opens, changes or closes orders.
 
 Documentation: https://lapdawgg.github.io/eventrlens/
 
@@ -14,4 +14,4 @@ Documentation: https://lapdawgg.github.io/eventrlens/
 
 This repository holds only the built documentation site of Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. The product source code is not here.
 
-Last updated 2026-11-20.
+Last updated 2026-11-22.

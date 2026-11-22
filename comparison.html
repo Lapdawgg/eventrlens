@@ -35,8 +35,8 @@
 <h2 id="feature-table-checked-2026-11-18">Feature table (checked 2026-11-18)</h2>
 <div class="table"><table>
 <thead><tr><th>Product</th><th>Type and price</th><th>Event tag per trade</th><th>MAE / MFE per trade</th><th>Spread at entry</th><th>Fix windows</th><th>Free-form combination query</th><th>Replay at another risk / Monte Carlo</th><th>Source</th></tr>
-</thead><tbody><tr><td>Event R Lens</td><td>MT5 utility, free</td><td>Yes</td><td>Yes (M1, ticks optional)</td><td>Yes</td><td>Yes (Tokyo, London)</td><td>Partly (one dimension at a time)</td><td>Not included</td><td>This site</td></tr>
-<tr><td>Event R Lens Pro</td><td>MT5 utility, price: to be decided</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes, with saved queries</td><td>Yes (10,000 reshuffles, R based)</td><td>This site</td></tr>
+</thead><tbody><tr><td>Event R Lens</td><td>MT5 utility, free</td><td>Yes</td><td>Yes (M1 bars)</td><td>Yes (M1 bar)</td><td>Yes (Tokyo, London)</td><td>Partly (session, symbol or direction, one at a time)</td><td>Not included</td><td>This site</td></tr>
+<tr><td>Event R Lens Pro</td><td>MT5 utility, price: to be decided</td><td>Yes, with a breakdown by event</td><td>Yes (M1 bars)</td><td>Yes (ticks for recent trades)</td><td>Yes, with a breakdown by fix</td><td>Yes, with saved queries</td><td>Yes (10,000 reshuffles, R based)</td><td>This site</td></tr>
 <tr><td>Strategy Ledger (free; page title now &quot;EA Scorecard&quot;)</td><td>MT5 utility, free, version 8.51</td><td>Not listed</td><td>Not listed</td><td>Not listed (slippage estimate only)</td><td>Not listed</td><td>Partly (grouping by magic and comment)</td><td>Partly (Monte Carlo 95% drawdown)</td><td><a href="https://www.mql5.com/en/market/product/187239">MQL5 product 187239</a></td></tr>
 <tr><td>Strategy Ledger Pro</td><td>MT5 utility, 39 USD, version 5.0</td><td>Not listed</td><td>Not listed</td><td>Partly (backtest vs. live COMPARE)</td><td>Not listed (Asia, London, NY sessions)</td><td>Partly (magic, lot and session lens)</td><td>Yes (Monte Carlo 95% drawdown, risk-% what-if from 0.05% to 10%)</td><td><a href="https://www.mql5.com/en/market/product/192540">MQL5 product 192540</a></td></tr>
 <tr><td>EA Performance Hub</td><td>MT5 utility, 39 USD, version 2.1</td><td>Not listed</td><td>Not listed</td><td>Not listed</td><td>Not listed</td><td>Not listed (period and symbol filter)</td><td>Not listed (average R per EA)</td><td><a href="https://www.mql5.com/en/market/product/175602">MQL5 product 175602</a></td></tr>
@@ -61,13 +61,13 @@
 <ul><li><strong>Event tags:</strong> Each trade carries the high-importance economic event near its entry or exit (for example USD CPI or USD NFP), matched by the calendar's event code and corrected for daylight saving. We did not find this per-trade tag in the products above.</li>
 <li><strong>Fix windows:</strong> Trades near the Tokyo or London fix are tagged. We did not find this in an analysis tool.</li>
 <li><strong>R, MAE and MFE together:</strong> R multiple, MAE and MFE are shown in price, money and R on the same row as the event, session and fix, with every input in the audit CSV. MAE and MFE alone are common: at least six MQL5 products show them.</li>
-<li><strong>Pro:</strong> free-form combination queries with saved queries, and a lift table of labels among the biggest winners and losers.</li></ul>
+<li><strong>Pro:</strong> results by event and by fix window, free-form combination queries with saved queries, and a lift table of labels among the biggest winners and losers.</li></ul>
 <h2 id="method">Method</h2>
 <ul><li><strong>Date:</strong> All pages were read on 2026-11-18.</li>
 <li><strong>MQL5 Market:</strong> Products were found by web search and direct links, because the Market's own search could not be queried.</li>
 <li><strong>Myfxbook:</strong> Facts come from search result summaries only, because the site refused automated access.</li>
 <li><strong>Cell wording:</strong> Each cell summarises the page; it does not quote it.</li></ul>
 </main>
-<footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-20.</p></div></footer>
+<footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
 </body>
 </html>

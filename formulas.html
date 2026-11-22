@@ -77,7 +77,7 @@
 <h2 id="4-spread-at-entry">4. Spread at entry</h2>
 <ul><li><strong>From ticks:</strong> ask − bid of the tick nearest to the entry moment, within 60 s. If two ticks are equally near, the earlier one wins.</li>
 <li><strong>Without ticks:</strong> The M1 bar's spread × point (flag <code>spread_from_bar</code>).</li>
-<li><strong>Two passes:</strong> The engine first fills every trade from M1 data (fast). A second pass then replaces spread, market-order slippage and, if enabled, MAE/MFE with tick-based values where ticks exist. It runs newest trades first, in the background, with progress shown. A tick request costs about 0.03–0.1 s in MT5. Until a trade is refined it keeps the M1-based value and its flag.</li></ul>
+<li><strong>Two passes:</strong> The engine first fills every trade from M1 data (fast). In Event R Lens Pro a second pass then replaces spread, market-order slippage and, if enabled, MAE/MFE with tick-based values where ticks exist, for trades entered in the last N days (input, default 30; 0 = all). It runs newest trades first, in the background, with progress shown. A tick request costs about 0.03–0.1 s in MT5. Until a trade is refined it keeps the M1-based value and its flag. Event R Lens (free) uses the M1 values only.</li></ul>
 <h2 id="5-slippage">5. Slippage</h2>
 <ul><li><strong>Sign:</strong> Positive = worse for the trader. Buy: fill − reference. Sell: reference − fill.</li>
 <li><strong>Pending orders:</strong> The reference is the order price.</li>
@@ -229,6 +229,6 @@
 <li><strong>Calendar network:</strong> The economic calendar may not be reachable on some networks; event tags are then off.</li>
 <li><strong>Strategy Tester:</strong> The calendar is not available in the Strategy Tester.</li></ul>
 </main>
-<footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-20.</p></div></footer>
+<footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
 </body>
 </html>
