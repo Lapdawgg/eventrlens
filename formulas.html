@@ -235,6 +235,20 @@
 <li><strong>Lines:</strong> The group with the highest mean R (if above 0) and the one with the lowest (if below 0), each with its 95% range (400 bootstrap resamples), trade count and hit rate. If the range includes 0, the line says the difference can be chance.</li>
 <li><strong>Events:</strong> Trades near an event compared with the other trades, when both have at least 10 trades with R.</li>
 <li><strong>Nothing to say:</strong> With fewer trades the card says how many trades with R there are.</li></ul>
+<h2 id="21-pro-news-reaction">21. Pro: News reaction</h2>
+<ul><li><strong>Releases:</strong> Major events (or every high-importance event, by input) of the chart symbol's currencies in the last 400 days, at least one hour old.</li>
+<li><strong>Clusters:</strong> Releases of one currency in the same minute are one release, named after the highest-ranked one: rate decision, press conference, NFP, CPI, PCE, GDP, retail sales, employment change, unemployment rate, hourly earnings, Fed chair.</li>
+<li><strong>Moves (M5 bars, server time):</strong> p0 = open of the M5 bar at the release time (floored to 5 minutes). 5 min = close of that bar − p0; 15 min = close of the bar 10 minutes later − p0; 60 min = close of the bar 55 minutes later − p0. Range = highest high − lowest low of the first three bars. A missing bar leaves the value unknown.</li>
+<li><strong>Units:</strong> Pips for 3- and 5-digit symbols, otherwise price in the symbol's profit currency.</li>
+<li><strong>Better / worse than expected:</strong> The calendar's impact flag for the currency (majority of the highest-ranked releases in the cluster). Above / below: actual against forecast, from the month-on-month figure where there is one.</li>
+<li><strong>Past tendency:</strong> &quot;Mostly up&quot; or &quot;mostly down&quot; only when one direction has at least 70% of at least 6 releases with a known 15-minute move; otherwise &quot;mixed&quot; or &quot;too few&quot;.</li>
+<li><strong>Not a forecast:</strong> These are past reactions. The next release can move the other way.</li></ul>
+<h2 id="22-pro-prop-firm-presets">22. Pro: Prop firm presets</h2>
+<ul><li><strong>Data:</strong> One row per firm, program and stage (and purchase-date cohort or size band where the rules differ), read from each firm's own pages. Every row keeps its source link, the date it was read and a confidence level. The data ships inside the EA; it is not downloaded.</li>
+<li><strong>Mapping:</strong> Daily loss %, max loss % (static or trailing), the day reset converted to server time (Europe/Prague and New York clocks with their daylight saving rules; a firm's server clock as is), news window minutes, consistency %, risk per trade %, minimum holding time and the weekend rule.</li>
+<li><strong>Where the panel measures differently, it says so:</strong> a daily limit from the higher of balance and equity, from the day's highest equity or as a percent of the day-start value; a trailing floor that stops at the initial balance or never stops; a news rule that applies only on funded accounts, and what happens on a breach; a minimum holding time that is an average, or only affects the profit share.</li>
+<li><strong>Account size:</strong> From the input, else the first deposit.</li>
+<li><strong>No preset:</strong> The rules come from the inputs.</li></ul>
 </main>
 <footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
 </body>
