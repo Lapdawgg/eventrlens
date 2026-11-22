@@ -4,7 +4,7 @@
 
 **Your MT5 trades, broken down by economic event, session and fix window.**
 
-Shows the R multiple, MAE and MFE of every closed trade and the economic event and fix window near it, and breaks your results down by session, symbol and direction. A read-only panel. It never opens, changes or closes orders.
+Shows the R multiple, MAE and MFE of every closed trade and the major economic event and fix window near it, breaks your results down by session, symbol and direction, and says in plain words what stands out. A read-only panel. It never opens, changes or closes orders.
 
 Documentation: https://lapdawgg.github.io/eventrlens/
 

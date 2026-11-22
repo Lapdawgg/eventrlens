@@ -85,7 +85,9 @@
 <li>Otherwise the reference is the quote at the order's setup time (ask for buy, bid for sell; flag <code>slippage_vs_quote</code>). IC Markets stores 0 for market orders.</li></ul>
 </li></ul>
 <h2 id="6-event-tags">6. Event tags</h2>
-<ul><li><strong>Which events:</strong> High-importance calendar events whose time is in [moment − X, moment + Y] for the entry or the exit (default X = Y = 15 min).</li>
+<ul><li><strong>Which events:</strong> Calendar events whose time is in [moment − X, moment + Y] for the entry or the exit (default X = Y = 15 min).</li>
+<li><strong>Major events (default):</strong> Of the high-importance events, only those whose code is a central bank rate decision or press/news conference, a Fed chair appearance, nonfarm payrolls with average hourly earnings, CPI (any variant), PCE price index, GDP, retail sales, unemployment rate or employment change (<code>ERL_IsMajorCode</code>). ADP, PMI, ISM, JOLTS, jobless claims, PPI, sentiment surveys, bond auctions and oil stocks are left out even when the calendar marks them high. The input &quot;Events to show and tag&quot; switches to every high-importance event.</li>
+<li><strong>Prop firm news rules (Pro):</strong> Prop Guard news windows always use every high-importance event, because firms define news more widely.</li>
 <li><strong>Currencies:</strong> The symbol's fiat currencies: base and profit currency, if they are fiat. XAUUSD, USTEC and BTCUSD → USD. EURUSD → EUR and USD.</li>
 <li><strong>Matching:</strong> By the language-independent event code, not by the name; the name comes in the terminal language.</li>
 <li><strong>Label:</strong> Currency + short label, e.g. &quot;USD NFP&quot;, &quot;USD CPI&quot;, &quot;USD FOMC&quot;.</li>
@@ -228,6 +230,11 @@
 <li><strong>Unrecorded SLs:</strong> An SL set after entry is unknown unless the panel was running.</li>
 <li><strong>Calendar network:</strong> The economic calendar may not be reachable on some networks; event tags are then off.</li>
 <li><strong>Strategy Tester:</strong> The calendar is not available in the Strategy Tester.</li></ul>
+<h2 id="20-what-stands-out">20. What stands out</h2>
+<ul><li><strong>Groups:</strong> Every group of the breakdown dimensions in the edition (free: session, symbol, direction; Pro: also event and fix) with at least 10 closed trades with R.</li>
+<li><strong>Lines:</strong> The group with the highest mean R (if above 0) and the one with the lowest (if below 0), each with its 95% range (400 bootstrap resamples), trade count and hit rate. If the range includes 0, the line says the difference can be chance.</li>
+<li><strong>Events:</strong> Trades near an event compared with the other trades, when both have at least 10 trades with R.</li>
+<li><strong>Nothing to say:</strong> With fewer trades the card says how many trades with R there are.</li></ul>
 </main>
 <footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
 </body>

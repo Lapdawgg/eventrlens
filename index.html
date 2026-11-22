@@ -20,7 +20,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Event R Lens: Your MT5 trades, broken down by economic event, session and fix window.">
 <link rel="stylesheet" href="style.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Event R Lens","applicationCategory":"FinanceApplication","operatingSystem":"Windows","softwareRequirements":"MetaTrader 5","softwareVersion":"1.00","description":"Shows the R multiple, MAE and MFE of every closed trade and the economic event and fix window near it, and breaks your results down by session, symbol and direction.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":"https://lapdawgg.github.io/eventrlens/og.png"},{"@type":"SoftwareApplication","name":"Event R Lens Pro","applicationCategory":"FinanceApplication","operatingSystem":"Windows","softwareRequirements":"MetaTrader 5","softwareVersion":"1.00","description":"Breaks down your own closed trades by economic event, fix window, session, symbol, direction and your own tags. Adds an event radar with your own past results, a prop firm rule guard, a rule simulator, a combination query, a Big R finder and Strategy Tester report import.","image":"https://lapdawgg.github.io/eventrlens/og.png"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Event R Lens","applicationCategory":"FinanceApplication","operatingSystem":"Windows","softwareRequirements":"MetaTrader 5","softwareVersion":"1.00","description":"Shows the R multiple, MAE and MFE of every closed trade and the major economic event and fix window near it, breaks your results down by session, symbol and direction, and says in plain words what stands out.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":"https://lapdawgg.github.io/eventrlens/og.png"},{"@type":"SoftwareApplication","name":"Event R Lens Pro","applicationCategory":"FinanceApplication","operatingSystem":"Windows","softwareRequirements":"MetaTrader 5","softwareVersion":"1.00","description":"Breaks down your own closed trades by economic event, fix window, session, symbol, direction and your own tags. Adds an event radar with your own past results, a prop firm rule guard, a rule simulator, a combination query, a Big R finder and Strategy Tester report import.","image":"https://lapdawgg.github.io/eventrlens/og.png"}]}</script>
 </head>
 <body>
 <header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">Event R Lens</a><nav><a href="index.html" aria-current="page">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
@@ -32,7 +32,8 @@
 <li>R multiple of every trade from its initial stop loss; optional 1R rule for trades without a stop loss</li>
 <li>MAE and MFE of every trade in price, money and R</li>
 <li>Spread at entry from M1 bars</li>
-<li>Every trade marked with the high-importance economic event (NFP, CPI, FOMC and others), session and Tokyo or London fix window near it</li>
+<li>Every trade marked with the major economic event near it (rate decisions, NFP, CPI, PCE, GDP, retail sales, jobs), its session and its Tokyo or London fix window; an input switches to every high-importance event</li>
+<li>What stands out: your strongest and weakest group and your trades near major events, in plain words with the trade count and 95% range</li>
 <li>Breakdown tables by session, symbol and direction</li>
 <li>Trade list with every input of every calculation</li>
 <li>Audit CSV export of every input and result</li>
@@ -55,13 +56,14 @@
 <tr><td>R multiple of every trade from its initial stop loss; optional 1R rule for trades without a stop loss</td><td>Yes</td><td>Yes</td></tr>
 <tr><td>MAE and MFE of every trade in price, money and R</td><td>Yes</td><td>Yes</td></tr>
 <tr><td>Spread at entry from M1 bars</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Every trade marked with the high-importance economic event (NFP, CPI, FOMC and others), session and Tokyo or London fix window near it</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Every trade marked with the major economic event near it (rate decisions, NFP, CPI, PCE, GDP, retail sales, jobs), its session and its Tokyo or London fix window; an input switches to every high-importance event</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>What stands out: your strongest and weakest group and your trades near major events, in plain words with the trade count and 95% range</td><td>Yes</td><td>Yes</td></tr>
 <tr><td>Breakdown tables by session, symbol and direction</td><td>Yes</td><td>Yes</td></tr>
 <tr><td>Trade list with every input of every calculation</td><td>Yes</td><td>Yes</td></tr>
 <tr><td>Audit CSV export of every input and result</td><td>Yes</td><td>Yes</td></tr>
 <tr><td>Reconcile view: totals compared with the account balance</td><td>Yes</td><td>Yes</td></tr>
 <tr><td>Breakdown by economic event and by fix window: hit rate, mean R with its 95% range, max MAE and net result near each event type</td><td>-</td><td>Yes</td></tr>
-<tr><td>Event Radar: upcoming high-importance events for your symbol and open positions, with your own past results near each one, and optional alerts</td><td>-</td><td>Yes</td></tr>
+<tr><td>Event Radar: upcoming major events for your symbol and open positions, with your own past results near each one, and optional alerts</td><td>-</td><td>Yes</td></tr>
 <tr><td>Prop Guard: daily loss, max loss, news window, consistency, risk per trade and weekend rules that you enter, checked on your history and live</td><td>-</td><td>Yes</td></tr>
 <tr><td>Rule simulator: your past trades replayed with rules such as skipping news entries, a daily stop or a stop to entry at +1R</td><td>-</td><td>Yes</td></tr>
 <tr><td>Combination query: symbol, direction, event, session, fix, tag, weekdays and entry hours, with saved queries</td><td>-</td><td>Yes</td></tr>
@@ -84,7 +86,8 @@
 <li>A stop loss set after entry is known only if the panel was running at that time.</li>
 <li>Economic calendar times are corrected for daylight saving with the broker time model (default: New York + 7 h).</li>
 <li>The economic calendar may not be reachable on some networks; event tags are then off and the panel says so.</li>
-<li>The economic calendar is not available in the Strategy Tester.</li></ul>
+<li>The economic calendar is not available in the Strategy Tester.</li>
+<li>Major events are chosen by event code; the list is on the Formulas page. Set the input to every high-importance event to see the rest.</li></ul>
 </main>
 <footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
 </body>
