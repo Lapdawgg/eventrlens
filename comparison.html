@@ -3,71 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Event R Lens compared with Strategy Ledger, EA Performance Hub, Magic Stats, Myfxbook and FX Blue</title>
-<meta name="description" content="A dated, sourced comparison of MetaTrader trade analysis tools - economic event tags, MAE and MFE, spread, fix windows, queries and replays - including where other tools do more.">
+<title>EventOwl compared with other MT5 trade analysis tools</title>
+<meta name="description" content="EventOwl next to EA Scorecard, Strategy Ledger Pro, EA Performance Hub, Magic Stats and FX Blue: dated, sourced, and where others do more.">
 <link rel="canonical" href="https://lapdawgg.github.io/eventrlens/comparison.html">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#181a1f">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Event R Lens">
-<meta property="og:title" content="Event R Lens compared with Strategy Ledger, EA Performance Hub, Magic Stats, Myfxbook and FX Blue">
-<meta property="og:description" content="A dated, sourced comparison of MetaTrader trade analysis tools - economic event tags, MAE and MFE, spread, fix windows, queries and replays - including where other tools do more.">
+<meta property="og:site_name" content="EventOwl">
+<meta property="og:title" content="EventOwl compared with other MT5 trade analysis tools">
+<meta property="og:description" content="EventOwl next to EA Scorecard, Strategy Ledger Pro, EA Performance Hub, Magic Stats and FX Blue: dated, sourced, and where others do more.">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:url" content="https://lapdawgg.github.io/eventrlens/comparison.html">
 <meta property="og:image" content="https://lapdawgg.github.io/eventrlens/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Event R Lens: Your MT5 trades, broken down by economic event, session and fix window.">
+<meta property="og:image:alt" content="EventOwl: Your MT5 trades, broken down by economic event, session and fix window.">
 <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">Event R Lens</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html" aria-current="page">Comparison</a> <a href="guides.html">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">EventOwl</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html" aria-current="page">Comparison</a> <a href="guides.html">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
 <main class="wrap">
-<h1>Event R Lens compared with Strategy Ledger, EA Performance Hub, Magic Stats, Myfxbook and FX Blue</h1>
-<p>Event R Lens is the tool in this list that tags each trade with the economic event near its entry or exit and with the Tokyo or London fix. Several others do more in other areas: Strategy Ledger Pro has correlation, prop limits, an execution report and 11 languages; Myfxbook and FX Blue offer free public account pages. The table below was checked on 2026-11-18, and every row links to its source.</p>
-<h2 id="how-to-read-the-table">How to read the table</h2>
-<ul><li><strong>Yes</strong>: the feature is described on the product page.</li>
-<li><strong>Partly</strong>: a narrower version is described (the note says how).</li>
-<li><strong>Not listed</strong>: we did not find it on the page. That does not prove the product lacks it.</li>
-<li>Pages change. If a row is out of date, please say so in the comments of the Event R Lens product page on MQL5.</li></ul>
-<h2 id="feature-table-checked-2026-11-18">Feature table (checked 2026-11-18)</h2>
+<h1>EventOwl compared with other MT5 trade analysis tools</h1>
+<p>EventOwl next to other trade analysis tools for MetaTrader, as each product page described them on 2026-11-18.</p>
 <div class="table"><table>
-<thead><tr><th>Product</th><th>Type and price</th><th>Event tag per trade</th><th>MAE / MFE per trade</th><th>Spread at entry</th><th>Fix windows</th><th>Free-form combination query</th><th>Replay at another risk / Monte Carlo</th><th>Source</th></tr>
-</thead><tbody><tr><td>Event R Lens</td><td>MT5 utility, free</td><td>Yes</td><td>Yes (M1 bars)</td><td>Yes (M1 bar)</td><td>Yes (Tokyo, London)</td><td>Partly (session, symbol or direction, one at a time)</td><td>Not included</td><td>This site</td></tr>
-<tr><td>Event R Lens Pro</td><td>MT5 utility, price: to be decided</td><td>Yes, with a breakdown by event</td><td>Yes (M1 bars)</td><td>Yes (ticks for recent trades)</td><td>Yes, with a breakdown by fix</td><td>Yes, with saved queries</td><td>Yes (10,000 reshuffles, R based)</td><td>This site</td></tr>
-<tr><td>Strategy Ledger (free; page title now &quot;EA Scorecard&quot;)</td><td>MT5 utility, free, version 8.51</td><td>Not listed</td><td>Not listed</td><td>Not listed (slippage estimate only)</td><td>Not listed</td><td>Partly (grouping by magic and comment)</td><td>Partly (Monte Carlo 95% drawdown)</td><td><a href="https://www.mql5.com/en/market/product/187239">MQL5 product 187239</a></td></tr>
-<tr><td>Strategy Ledger Pro</td><td>MT5 utility, 39 USD, version 5.0</td><td>Not listed</td><td>Not listed</td><td>Partly (backtest vs. live COMPARE)</td><td>Not listed (Asia, London, NY sessions)</td><td>Partly (magic, lot and session lens)</td><td>Yes (Monte Carlo 95% drawdown, risk-% what-if from 0.05% to 10%)</td><td><a href="https://www.mql5.com/en/market/product/192540">MQL5 product 192540</a></td></tr>
-<tr><td>EA Performance Hub</td><td>MT5 utility, 39 USD, version 2.1</td><td>Not listed</td><td>Not listed</td><td>Not listed</td><td>Not listed</td><td>Not listed (period and symbol filter)</td><td>Not listed (average R per EA)</td><td><a href="https://www.mql5.com/en/market/product/175602">MQL5 product 175602</a></td></tr>
-<tr><td>Magic Stats</td><td>MT5 utility, free, version 1.0</td><td>Not listed</td><td>Not listed</td><td>Not listed</td><td>Not listed</td><td>Not listed (statistics per magic number)</td><td>Not listed</td><td><a href="https://www.mql5.com/en/market/product/200695">MQL5 product 200695</a></td></tr>
-<tr><td>Myfxbook</td><td>Web service, free</td><td>Not listed</td><td>Yes (in pips)</td><td>Not listed</td><td>Not listed</td><td>Partly</td><td>Not listed</td><td>Search summaries only; the site refused automated access</td></tr>
-<tr><td>FX Blue</td><td>Web service with MT4/MT5 publisher, free</td><td>Not listed</td><td>Yes on MT4 (approximate, swap excluded); not stated for MT5</td><td>Not listed</td><td>Not listed</td><td>Partly (fixed breakdowns by symbol, direction, day and hour)</td><td>Not listed</td><td><a href="https://www.fxblue.com/">FX Blue</a>, <a href="https://pub2.fxblue.com/appstore/u8/mt4-publisher-ea/user-guide">publisher guide</a></td></tr>
+<thead><tr><th>Product</th><th>Event tag per trade</th><th>MAE/MFE per trade</th><th>Fix windows</th><th>Price</th><th>Source</th></tr>
+</thead><tbody><tr><td>EventOwl</td><td>Yes</td><td>Yes (M1 bars)</td><td>Yes (Tokyo, London)</td><td>Free</td><td>This site</td></tr>
+<tr><td>EventOwl Pro</td><td>Yes, with results by event</td><td>Yes (M1 bars)</td><td>Yes, with results by fix</td><td>To be decided</td><td>This site</td></tr>
+<tr><td>EA Scorecard (formerly Strategy Ledger)</td><td>Not listed</td><td>Not listed</td><td>Not listed</td><td>Free</td><td><a href="https://www.mql5.com/en/market/product/187239">MQL5 product 187239</a></td></tr>
+<tr><td>Strategy Ledger Pro</td><td>Not listed</td><td>Not listed</td><td>Not listed</td><td>39 USD</td><td><a href="https://www.mql5.com/en/market/product/192540">MQL5 product 192540</a></td></tr>
+<tr><td>EA Performance Hub</td><td>Not listed</td><td>Not listed</td><td>Not listed</td><td>39 USD</td><td><a href="https://www.mql5.com/en/market/product/175602">MQL5 product 175602</a></td></tr>
+<tr><td>Magic Stats</td><td>Not listed</td><td>Not listed</td><td>Not listed</td><td>Free</td><td><a href="https://www.mql5.com/en/market/product/200695">MQL5 product 200695</a></td></tr>
+<tr><td>FX Blue</td><td>Not listed</td><td>Yes on MT4 (approximate)</td><td>Not listed</td><td>Free</td><td><a href="https://www.fxblue.com/">FX Blue</a>, <a href="https://pub2.fxblue.com/appstore/u8/mt4-publisher-ea/user-guide">publisher guide</a></td></tr>
 </tbody></table></div>
-<h2 id="where-other-tools-do-more">Where other tools do more</h2>
-<ul><li><strong>Strategy Ledger Pro:</strong><ul><li>Correlation of daily results.</li>
-<li>Prop limits (daily loss, maximum drawdown, profit target).</li>
-<li>An execution report.</li>
-<li>Strategy Tester import with a per-trade backtest vs. live comparison.</li>
-<li>What-if and sizing tools.</li>
-<li>Share cards and alerts.</li>
-<li>11 languages.</li>
-<li>On sale since August 2026, with frequent updates and 22 reviews on 2026-11-18.</li></ul>
-</li>
-<li><strong>Strategy Ledger (free):</strong> Monte Carlo drawdown and a slippage estimate in a free tool.</li>
-<li><strong>Myfxbook and FX Blue:</strong> free public account pages that others can verify, several accounts in one portfolio, widgets and APIs, and MAE/MFE for many years.</li>
-<li><strong>Price:</strong> Strategy Ledger and Magic Stats are free, like Event R Lens.</li></ul>
-<h2 id="where-event-r-lens-differs">Where Event R Lens differs</h2>
-<ul><li><strong>Event tags:</strong> Each trade carries the high-importance economic event near its entry or exit (for example USD CPI or USD NFP), matched by the calendar's event code and corrected for daylight saving. We did not find this per-trade tag in the products above.</li>
-<li><strong>Fix windows:</strong> Trades near the Tokyo or London fix are tagged. We did not find this in an analysis tool.</li>
-<li><strong>R, MAE and MFE together:</strong> R multiple, MAE and MFE are shown in price, money and R on the same row as the event, session and fix, with every input in the audit CSV. MAE and MFE alone are common: at least six MQL5 products show them.</li>
-<li><strong>Pro:</strong> results by event and by fix window, free-form combination queries with saved queries, and a lift table of labels among the biggest winners and losers.</li></ul>
-<h2 id="method">Method</h2>
-<ul><li><strong>Date:</strong> All pages were read on 2026-11-18.</li>
-<li><strong>MQL5 Market:</strong> Products were found by web search and direct links, because the Market's own search could not be queried.</li>
-<li><strong>Myfxbook:</strong> Facts come from search result summaries only, because the site refused automated access.</li>
-<li><strong>Cell wording:</strong> Each cell summarises the page; it does not quote it.</li></ul>
+<p>Not listed means we did not find it on the product page; that does not prove the product lacks it. If a row is out of date, please say so in the comments on the EventOwl product page on MQL5.</p>
+<h2 id="where-others-do-more">Where others do more</h2>
+<ul><li><strong>Strategy Ledger Pro:</strong> correlation of daily results, prop limits, an execution report, what-if sizing and 11 languages.</li>
+<li><strong>EA Scorecard (free):</strong> Monte Carlo drawdown and a slippage estimate at no cost.</li>
+<li><strong>FX Blue:</strong> free public account pages that others can view, for MT4 as well as MT5 accounts.</li></ul>
+<h2 id="where-eventowl-differs">Where EventOwl differs</h2>
+<ul><li><strong>An event tag on every trade:</strong> the major release near its entry or exit, matched by event code and corrected for daylight saving.</li>
+<li><strong>Fix windows:</strong> trades near the Tokyo or London fix are tagged. We did not find this in another analysis tool.</li>
+<li><strong>R, MAE and MFE in one row:</strong> next to the event, session and fix, with every input in the audit CSV.</li></ul>
 </main>
-<footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
+<footer><div class="wrap"><p>EventOwl and EventOwl Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes what already happened and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
 </body>
 </html>

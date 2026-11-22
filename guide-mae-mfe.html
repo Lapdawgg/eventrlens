@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#181a1f">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Event R Lens">
+<meta property="og:site_name" content="EventOwl">
 <meta property="og:title" content="How to measure MAE and MFE of closed MT5 trades">
 <meta property="og:description" content="Measure the maximum adverse and favourable excursion of closed MetaTrader 5 trades from M1 bars, with MQL5 code and the pitfalls - short trades, edge bars and the M1 history limit.">
 <meta name="twitter:card" content="summary_large_image">
@@ -18,12 +18,12 @@
 <meta property="og:image" content="https://lapdawgg.github.io/eventrlens/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Event R Lens: Your MT5 trades, broken down by economic event, session and fix window.">
+<meta property="og:image:alt" content="EventOwl: Your MT5 trades, broken down by economic event, session and fix window.">
 <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">Event R Lens</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html" aria-current="page">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">EventOwl</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html" aria-current="page">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
 <main class="wrap">
 <h1>How to measure MAE and MFE of closed MT5 trades</h1>
 <p>To measure MAE and MFE of a closed MetaTrader 5 trade, take the M1 bars from the minute of entry to the minute of exit. For a long trade, MAE = entry price minus the lowest low, and MFE = the highest high minus the entry price. For a short trade it is the other way round, measured on the ask. Divide by the initial risk to get MAE and MFE in R.</p>
@@ -87,8 +87,8 @@ bool PositionExcursion(const long position_id, double &amp;mae, double &amp;mfe)
 <li><strong>The M1 history limit.</strong> MetaTrader keeps M1 bars only back to &quot;Max bars in chart&quot; (Tools &gt; Options &gt; Charts). Older trades get no bars; count them instead of guessing. A first request for old data can also start a download and return nothing; retry once, not for every trade.</li>
 <li><strong>Netting reversals.</strong> On a netting account one deal can close a position and open the opposite one (DEAL_ENTRY_INOUT). Split it into two trades before measuring.</li>
 <li><strong>Ticks instead of bars.</strong> <code>CopyTicksRange</code> gives the exact path where your broker keeps ticks, but each request takes a noticeable time. Use it for recent trades or in the background.</li></ul>
-<p>Event R Lens does this for every trade in your history and shows MAE and MFE in price, money and R next to the trade's event, session and fix.</p>
+<p>EventOwl does this from M1 bars for every trade in your history, marks the values as approximate, and shows MAE and MFE in price, money and R next to the trade's event, session and fix.</p>
 </main>
-<footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
+<footer><div class="wrap"><p>EventOwl and EventOwl Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes what already happened and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
 </body>
 </html>

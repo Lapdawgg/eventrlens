@@ -3,147 +3,228 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Event R Lens: see how your MT5 trades do around the news</title>
-<meta name="description" content="Event R Lens is a read-only MetaTrader 5 panel. It shows the R multiple, MAE and MFE of every closed trade with the major economic release and fix window near it. Event R Lens Pro adds results by event, the past reaction of your symbol to each release, an event radar and a prop rule guard.">
+<title>EventOwl: see how your MT5 trades do around the news</title>
+<meta name="description" content="Read-only MT5 panel: the R, MAE and MFE of every closed trade, with the economic release and fix window near it. EventOwl Pro adds results by event.">
 <link rel="canonical" href="https://lapdawgg.github.io/eventrlens/">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#181a1f">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Event R Lens">
-<meta property="og:title" content="Event R Lens: see how your MT5 trades do around the news">
-<meta property="og:description" content="Event R Lens is a read-only MetaTrader 5 panel. It shows the R multiple, MAE and MFE of every closed trade with the major economic release and fix window near it. Event R Lens Pro adds results by event, the past reaction of your symbol to each release, an event radar and a prop rule guard.">
+<meta property="og:site_name" content="EventOwl">
+<meta property="og:title" content="EventOwl: see how your MT5 trades do around the news">
+<meta property="og:description" content="Read-only MT5 panel: the R, MAE and MFE of every closed trade, with the economic release and fix window near it. EventOwl Pro adds results by event.">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:url" content="https://lapdawgg.github.io/eventrlens/">
 <meta property="og:image" content="https://lapdawgg.github.io/eventrlens/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Event R Lens: Your MT5 trades, broken down by economic event, session and fix window.">
+<meta property="og:image:alt" content="EventOwl: Your MT5 trades, broken down by economic event, session and fix window.">
 <link rel="stylesheet" href="style.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Event R Lens","applicationCategory":"FinanceApplication","operatingSystem":"Windows","softwareRequirements":"MetaTrader 5","softwareVersion":"1.00","description":"Shows the R multiple, MAE and MFE of every closed trade and the major economic event and fix window near it, breaks your results down by session, symbol and direction, and says in plain words what stands out.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":"https://lapdawgg.github.io/eventrlens/og.png"},{"@type":"SoftwareApplication","name":"Event R Lens Pro","applicationCategory":"FinanceApplication","operatingSystem":"Windows","softwareRequirements":"MetaTrader 5","softwareVersion":"1.00","description":"Breaks down your own closed trades by economic event, fix window, session, symbol, direction and your own tags. Adds an event radar with your own past results, the past reaction of your symbol to each major release, a prop firm rule guard, a rule simulator, a combination query, a Big R finder and Strategy Tester report import.","image":"https://lapdawgg.github.io/eventrlens/og.png"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"EventOwl","applicationCategory":"FinanceApplication","operatingSystem":"Windows","softwareRequirements":"MetaTrader 5","softwareVersion":"1.00","description":"Shows the R multiple, MAE and MFE of every closed trade and the major economic event and fix window near it, breaks your results down by session, symbol and direction, and says in plain words what stands out.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":"https://lapdawgg.github.io/eventrlens/og.png"},{"@type":"SoftwareApplication","name":"EventOwl Pro","applicationCategory":"FinanceApplication","operatingSystem":"Windows","softwareRequirements":"MetaTrader 5","softwareVersion":"1.00","description":"Breaks down your own closed trades by economic event, fix window, session, symbol, direction and your own tags. Adds an event radar with your own past results, the past reaction of your symbol to each major release, a prop firm rule guard, a rule simulator, a combination query, a Big R finder and Strategy Tester report import.","image":"https://lapdawgg.github.io/eventrlens/og.png"}]}</script>
 </head>
 <body>
-<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">Event R Lens</a><nav><a href="index.html" aria-current="page">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">EventOwl</a><nav><a href="index.html" aria-current="page">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
 <main class="home">
 <section class="hero">
 <div class="wrap">
-<p class="eyebrow">For MetaTrader 5. Read-only. No forecasts.</p>
+<p class="eyebrow">For MetaTrader 5. Read-only.</p>
 <h1>See how your trades do around the news.</h1>
-<p class="lead">Event R Lens puts the major economic release and the fix window next to every trade you closed, with its R multiple, MAE and MFE, and tells you in plain words what stands out. Event R Lens Pro shows your results by event, how your symbol moved after each past release, the next release with your own record, and your prop firm rules, live.</p>
+<p class="lead">EventOwl marks every closed trade with the major economic release near it and shows its R, MAE and MFE.</p>
 <p class="cta"><a class="btn primary" href="#free-and-pro">Compare Free and Pro</a> <a class="btn" href="verify.html">Verify it in 5 minutes</a></p>
-<p class="note">Below: how XAUUSD moved in the 15 minutes after each major US release of the last 400 days. A past tendency with its count, not a forecast.</p>
-<figure class="shot hero-shot"><img src="shot-reaction.webp" width="1280" height="720" alt="Event R Lens Pro News reaction: for XAUUSD, every past major US release with the up and down count after 15 minutes, median move, 15-minute range and the past tendency"></figure>
-<p class="trust"><span>Never sends orders</span><span>No network, no DLL</span><span>Every number in an audit CSV</span><span>Describes past trades only</span></p>
+<figure class="trailer">
+<picture>
+<source media="(prefers-reduced-motion: reduce)" srcset="shot-overview.webp">
+<img src="trailer.webp" width="960" height="540" fetchpriority="high" alt="The EventOwl panel: closed trades with the economic release near each one">
+</picture>
+</figure>
 </div>
 </section>
-<section class="features">
+<section class="band alt" id="roadmap">
 <div class="wrap">
-<div class="feature">
-<div class="text">
-<p class="tag free">Free</p>
-<h2>Every trade, with the news next to it.</h2>
-<p>Entry, exit, initial stop loss, 1R and R, MAE and MFE in price, money and R, spread, and the major release and Tokyo or London fix window near the trade. Click a trade to see every input of its calculation.</p>
+<div class="section-head">
+<p class="eyebrow">Roadmap</p>
+<h2>What should we build next?</h2>
+<p class="lead">Planned for the next update, and ideas for later. Plans can change.</p>
+<p class="note">Voting opens on GitHub with the first release.</p>
 </div>
-<figure class="shot"><img src="shot-trade.webp" width="1280" height="720" loading="lazy" alt="Trade detail window with entry, exit, initial stop loss, 1R, R multiple, MAE, MFE, spread, session and fix window"></figure>
-</div>
-<div class="feature">
-<div class="text">
-<p class="tag pro">Pro</p>
-<h2>Your results, release by release.</h2>
-<p>Hit rate, mean R with its 95% range, max MAE and net result for every event type: CPI, NFP, rate decisions, GDP, retail sales and more. Small groups are marked, so a few lucky trades do not look like a pattern.</p>
-</div>
-<figure class="shot"><img src="shot-events.webp" width="1280" height="720" loading="lazy" alt="Breakdown by economic event: one row per event with trades, wins, losses, hit rate, mean R, 95% range, max MAE and net result"></figure>
-</div>
-<div class="feature">
-<div class="text">
-<p class="tag free">Free</p>
-<h2>What stands out, in plain words.</h2>
-<p>Your strongest and weakest session, symbol or direction, and your trades near major releases against the rest, each with the trade count and its 95% range. If a difference can be chance, the panel says so.</p>
-</div>
-<figure class="shot"><img src="shot-overview.webp" width="1280" height="720" loading="lazy" alt="Overview with trades, net result, mean R, hit rate, max MAE, losing streak, Reconcile and the What stands out card"></figure>
-</div>
-<div class="feature">
-<div class="text">
-<p class="tag pro">Pro</p>
-<h2>The next release, with your own record.</h2>
-<p>A countdown to the next major events for your symbol and open positions, your past trades near each one, and optional terminal alerts before the release or before your news window starts.</p>
-</div>
-<figure class="shot"><img src="shot-radar.webp" width="1280" height="720" loading="lazy" alt="Event Radar: next event with countdown, your past trades near it and a table of upcoming events"></figure>
-</div>
-<div class="feature">
-<div class="text">
-<p class="tag pro">Pro</p>
-<h2>Prop firm rules, checked while you trade.</h2>
-<p>Pick your firm, program and stage, or enter the rules yourself. Daily loss, max loss, news window, consistency, risk per trade, weekend holding and minimum holding time: how much room is left today, which past days broke a rule, and where your firm measures differently. The panel warns; it never closes a position.</p>
-</div>
-<figure class="shot"><img src="shot-prop.webp" width="1280" height="720" loading="lazy" alt="Prop Guard live status: daily loss used, room to the max loss floor, next news window, weekend and open risk"></figure>
-</div>
-<div class="feature">
-<div class="text">
-<p class="tag pro">Pro</p>
-<h2>Test a rule on your past trades first.</h2>
-<p>Skip entries near news, stop after two losses, move the stop to entry at +1R: see what each rule would have done to your own trades, and whether it helped in both halves of your history.</p>
-</div>
-<figure class="shot"><img src="shot-rules.webp" width="1280" height="720" loading="lazy" alt="Rule simulator: your trades against the same trades with your rules, and the effect of each rule on its own"></figure>
+<div class="roadmap">
+<div class="rm-item rm-next"><p class="rm-chips"><span class="chip chip-next">Next update</span><span class="chip chip-ed">Pro</span></p><h3>NFP and CPI history</h3><p>Past moves after NFP and CPI, plus a swing-stop rule to test.</p><p class="note">Past data, not a forecast.</p></div>
+<div class="rm-item rm-next"><p class="rm-chips"><span class="chip chip-next">Next update</span><span class="chip chip-ed">Pro</span></p><h3>Tokyo fix and gotobi days</h3><p>USDJPY around the 09:55 JST fix on gotobi days, with your trades.</p><p class="note">Past data, not a signal.</p></div>
+<div class="rm-item rm-vote"><p class="rm-chips"><span class="chip chip-vote">Open for votes</span><span class="chip chip-ed">Pro</span></p><h3>Telegram alerts</h3><p>The panel's alerts in your own Telegram chat.</p><p class="note">Opt-in. Needs internet access.</p></div>
+<div class="rm-item rm-vote"><p class="rm-chips"><span class="chip chip-vote">Open for votes</span><span class="chip chip-ed">Pro</span></p><h3>Release headlines in the panel</h3><p>Headlines beside your chart, from a source we have permission to use.</p><p class="note">Opt-in. Needs internet access.</p></div>
+<div class="rm-item rm-vote"><p class="rm-chips"><span class="chip chip-vote">Open for votes</span><span class="chip chip-ed">Pro</span></p><h3>Second consensus source</h3><p>A licensed consensus figure next to the MetaTrader calendar's forecast.</p><p class="note">Opt-in. Needs internet access.</p></div>
+<div class="rm-item rm-vote"><p class="rm-chips"><span class="chip chip-vote">Open for votes</span><span class="chip chip-ed">Free and Pro</span></p><h3>MetaTrader 4 version</h3><p>EventOwl and EventOwl Pro for MT4 accounts.</p></div>
 </div>
 </div>
 </section>
-<div class="wrap prose">
-<h2 id="free-and-pro">Free and Pro</h2>
-<div class="table"><table>
-<thead><tr><th>Feature</th><th>Event R Lens</th><th>Event R Lens Pro</th></tr>
-</thead><tbody><tr><td>Builds trades from the account history: partial closes, netting reversals, separate commission deals and swaps</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>R multiple of every trade from its initial stop loss; optional 1R rule for trades without a stop loss</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>MAE and MFE of every trade in price, money and R</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Spread at entry from M1 bars</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Every trade marked with the major economic event near it (rate decisions, NFP, CPI, PCE, GDP, retail sales, jobs), its session and its Tokyo or London fix window; an input switches to every high-importance event</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>What stands out: your strongest and weakest group and your trades near major events, in plain words with the trade count and 95% range</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Breakdown tables by session, symbol and direction</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Trade list with every input of every calculation</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Audit CSV export of every input and result</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Reconcile view: totals compared with the account balance</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Breakdown by economic event and by fix window: hit rate, mean R with its 95% range, max MAE and net result near each event type</td><td>-</td><td>Yes</td></tr>
-<tr><td>Event Radar: upcoming major events for your symbol and open positions, with your own past results near each one, and optional alerts</td><td>-</td><td>Yes</td></tr>
-<tr><td>News reaction: how your chart symbol moved 5, 15 and 60 minutes after each past major release, split by better or worse than expected, with the past tendency; past reactions, not a forecast</td><td>-</td><td>Yes</td></tr>
-<tr><td>Prop Guard: pick your prop firm, program and stage (presets for 8 firms, each with its source and the date it was read) or enter the rules yourself; daily loss, max loss, news window, consistency, risk per trade, weekend and minimum holding time, checked on your history and live</td><td>-</td><td>Yes</td></tr>
-<tr><td>Rule simulator: your past trades replayed with rules such as skipping news entries, a daily stop or a stop to entry at +1R</td><td>-</td><td>Yes</td></tr>
-<tr><td>Combination query: symbol, direction, event, session, fix, tag, weekdays and entry hours, with saved queries</td><td>-</td><td>Yes</td></tr>
-<tr><td>Big R finder: which labels are over-represented among your biggest winners and losers (lift table)</td><td>-</td><td>Yes</td></tr>
-<tr><td>Replay of your past R sequence at a chosen risk, with 10,000 reshuffles of the same trades</td><td>-</td><td>Yes</td></tr>
-<tr><td>Spread and slippage refined from ticks for recent trades (the number of days is an input)</td><td>-</td><td>Yes</td></tr>
-<tr><td>Strategy Tester report import, shown as a simulated dataset and never mixed with the account history</td><td>-</td><td>Yes</td></tr>
-<tr><td>Your own tags from comment keywords and magic numbers</td><td>-</td><td>Yes</td></tr>
-<tr><td>Share card: a PNG of a query result without account number, broker or money amounts</td><td>-</td><td>Yes</td></tr>
-<tr><td>Price</td><td>Free</td><td>To be decided</td></tr>
+<section class="band">
+<div class="wrap">
+<div class="section-head">
+<h2>A closer look.</h2>
+</div>
+<div class="cards">
+<article class="card">
+<a class="shot-link" href="shot-trade.webp"><img src="shot-trade.webp" width="1280" height="720" loading="lazy" decoding="async" alt="Trade detail window with entry, exit, initial stop loss, 1R, R multiple, MAE, MFE, spread, session and fix window"></a>
+<div class="card-body">
+<p class="chip chip-free">Free</p>
+<h3>Every trade, with the news next to it</h3>
+<p>R, MAE, MFE and spread, with the release, session and fix window near each trade.</p>
+</div>
+</article>
+<article class="card">
+<a class="shot-link" href="shot-overview.webp"><img src="shot-overview.webp" width="1280" height="720" loading="lazy" decoding="async" alt="Overview with trades, net result, mean R, hit rate, max MAE, losing streak, Reconcile and the What stands out card"></a>
+<div class="card-body">
+<p class="chip chip-free">Free</p>
+<h3>What stands out, in plain words</h3>
+<p>The top and bottom group by mean R, each with its trade count and 95% range.</p>
+</div>
+</article>
+<article class="card pro">
+<a class="shot-link" href="shot-events.webp"><img src="shot-events.webp" width="1280" height="720" loading="lazy" decoding="async" alt="Breakdown by economic event: one row per event with trades, wins, losses, hit rate, mean R, 95% range, max MAE and net result"></a>
+<div class="card-body">
+<p class="chip chip-pro">Pro</p>
+<h3>Your results, release by release</h3>
+<p>Hit rate, mean R and max MAE around CPI, NFP, rate decisions and more.</p>
+</div>
+</article>
+<article class="card pro">
+<a class="shot-link" href="shot-reaction.webp"><img src="shot-reaction.webp" width="1280" height="720" loading="lazy" decoding="async" alt="News reaction: for XAUUSD, every past major US release with the up and down count after 15 minutes, median move, 15-minute range and the past tendency"></a>
+<div class="card-body">
+<p class="chip chip-pro">Pro</p>
+<h3>How your symbol reacted</h3>
+<p>The move 5, 15 and 60 minutes after each past release, split by better or worse than expected.</p>
+</div>
+</article>
+<article class="card pro">
+<a class="shot-link" href="shot-radar.webp"><img src="shot-radar.webp" width="1280" height="720" loading="lazy" decoding="async" alt="Event Radar: next event with countdown, your past trades near it and a table of upcoming events"></a>
+<div class="card-body">
+<p class="chip chip-pro">Pro</p>
+<h3>The next release, with your record</h3>
+<p>A countdown to the next major events, with your past trades near each one.</p>
+</div>
+</article>
+<article class="card pro">
+<a class="shot-link" href="shot-rules.webp"><img src="shot-rules.webp" width="1280" height="720" loading="lazy" decoding="async" alt="Rule simulator: the sample trades replayed without entries within 15 minutes of news, with a stop after 2 losses and a stop to entry at +1R, next to the original results"></a>
+<div class="card-body">
+<p class="chip chip-pro">Pro</p>
+<h3>Test a rule on your past trades</h3>
+<p>Skip news entries or stop after two losses, then compare with what happened.</p>
+</div>
+</article>
+</div>
+<p class="note center">The screenshots show a Strategy Tester report of MetaQuotes' sample EA "ExpertMACD" on XAUUSD, marked SIMULATED in the panel.</p>
+</div>
+</section>
+<section class="band alt">
+<div class="wrap narrow">
+<div class="section-head">
+<h2 id="free-and-pro">Free and Pro.</h2>
+<p class="lead">EventOwl shows every trade. EventOwl Pro adds results by event and the tools around them.</p>
+</div>
+<div class="table compare"><table>
+<thead><tr><th>Feature</th><th>EventOwl</th><th>EventOwl Pro</th></tr></thead>
+<tbody>
+<tr><td>R, MAE and MFE of every trade</td><td><span class="yes">&#10003;</span></td><td><span class="yes">&#10003;</span></td></tr>
+<tr><td>Event, session and fix window tags</td><td><span class="yes">&#10003;</span></td><td><span class="yes">&#10003;</span></td></tr>
+<tr><td>What stands out, in plain words</td><td><span class="yes">&#10003;</span></td><td><span class="yes">&#10003;</span></td></tr>
+<tr><td>Audit CSV and Reconcile</td><td><span class="yes">&#10003;</span></td><td><span class="yes">&#10003;</span></td></tr>
+<tr><td>Results by event and fix window</td><td><span class="no">&#8211;</span></td><td><span class="yes">&#10003;</span></td></tr>
+<tr><td>News reaction after each release</td><td><span class="no">&#8211;</span></td><td><span class="yes">&#10003;</span></td></tr>
+<tr><td>Event Radar and phone alerts</td><td><span class="no">&#8211;</span></td><td><span class="yes">&#10003;</span></td></tr>
+<tr><td>Prop Guard with presets for 8 firms</td><td><span class="no">&#8211;</span></td><td><span class="yes">&#10003;</span></td></tr>
+<tr><td>Rule simulator and saved queries</td><td><span class="no">&#8211;</span></td><td><span class="yes">&#10003;</span></td></tr>
 </tbody></table></div>
-<p>Both are Expert Advisors in the MQL5 Market category Utilities, version 1.00. Event R Lens is free. Event R Lens Pro: To be decided.</p>
-<p>Both will be available on the MQL5 Market; the links are added here when they are published.</p>
-<h2 id="what-event-r-lens-does">What Event R Lens does</h2>
+<p class="note">Pro also has the Big R finder, replay, spread and slippage from ticks, Strategy Tester report import, your own tags and share cards.</p>
+<div class="price">
+<p><strong>EventOwl:</strong> Free. <strong>EventOwl Pro:</strong> To be decided. Both will be available on the MQL5 Market; the links are added here when they are published. <a href="comparison.html">How it compares with other tools</a>.</p>
+</div>
+</div>
+</section>
+<section class="band">
+<div class="wrap">
+<div class="section-head">
+<h2>Read-only, and easy to check.</h2>
+</div>
+<ul class="trust">
+<li class="t-orders"><strong>Never sends orders</strong><span>It works with Algo Trading off.</span></li>
+<li class="t-net"><strong>No WebRequest, sockets or DLLs</strong><span>A script checks the code before every build.</span></li>
+<li class="t-csv"><strong>Every number in an audit CSV</strong><span>Recompute any value yourself.</span></li>
+<li class="t-past"><strong>Describes, never forecasts</strong><span>No trade signals and no price predictions.</span></li>
+</ul>
+</div>
+</section>
+<section class="band alt">
+<div class="wrap narrow">
+<div class="section-head">
+<h2>The details.</h2>
+</div>
+<div class="accordion">
+<details>
+<summary>Everything in EventOwl</summary>
+<div class="details-body">
 <ul><li>Builds trades from the account history: partial closes, netting reversals, separate commission deals and swaps</li>
 <li>R multiple of every trade from its initial stop loss; optional 1R rule for trades without a stop loss</li>
 <li>MAE and MFE of every trade in price, money and R</li>
 <li>Spread at entry from M1 bars</li>
 <li>Every trade marked with the major economic event near it (rate decisions, NFP, CPI, PCE, GDP, retail sales, jobs), its session and its Tokyo or London fix window; an input switches to every high-importance event</li>
-<li>What stands out: your strongest and weakest group and your trades near major events, in plain words with the trade count and 95% range</li>
+<li>What stands out: the top and bottom group by mean R, each with its trade count and 95% range, and your trades near major events compared with the other trades, in plain words</li>
 <li>Breakdown tables by session, symbol and direction</li>
 <li>Trade list with every input of every calculation</li>
 <li>Audit CSV export of every input and result</li>
 <li>Reconcile view: totals compared with the account balance</li></ul>
-<h2 id="what-it-does-not-do">What it does not do</h2>
+</div>
+</details>
+<details>
+<summary>Everything in EventOwl Pro</summary>
+<div class="details-body">
+<ul><li>Breakdown by economic event and by fix window: hit rate, mean R with its 95% range, max MAE and net result near each event type</li>
+<li>Event Radar: upcoming major events for your symbol and open positions, with your own past results near each one, and optional alerts in the terminal and on your phone (MetaTrader push notifications)</li>
+<li>News reaction: how your chart symbol moved 5, 15 and 60 minutes after each past major release, split by better or worse than expected, with the past tendency; past reactions, not a forecast</li>
+<li>Prop Guard: pick your prop firm, program and stage (presets for 8 firms, each with its source and the date it was read) or enter your own rules; daily loss, max loss, news window, risk per trade and weekend, checked on your history and live; consistency, and minimum holding time from presets, checked on your history</li>
+<li>Rule simulator: your past trades replayed with rules such as skipping news entries, a daily stop or a stop to entry at +1R</li>
+<li>Combination query: symbol, direction, event, session, fix, tag, weekdays and entry hours, with saved queries</li>
+<li>Big R finder: which labels are over-represented among your top and bottom trades by R (lift table)</li>
+<li>Replay of your past R sequence at a chosen risk, with 10,000 reshuffles of the same trades</li>
+<li>Spread and slippage refined from ticks for recent trades (the number of days is an input)</li>
+<li>Strategy Tester report import, shown as a simulated dataset and never mixed with the account history</li>
+<li>Your own tags from comment keywords and magic numbers</li>
+<li>Share card: a PNG of a query result without account number, broker or money amounts</li>
+<li>Also included: the trade list with R, MAE and MFE, event, session and fix tags, What stands out, the session, symbol and direction breakdowns, the audit CSV and Reconcile</li></ul>
+</div>
+</details>
+<details>
+<summary>What it does not do</summary>
+<div class="details-body">
+<h3>EventOwl</h3>
 <ul><li>Does not open, change or close orders or positions. The source code contains no trade functions.</li>
-<li>Does not use the network, WebRequest or DLLs.</li>
+<li>Does not use the network, WebRequest, sockets or DLLs.</li>
 <li>Does not forecast. Every number describes past trades.</li>
-<li>Does not collect personal data. It writes only to MQL5 &gt; Files &gt; EventRLens: your display settings, an SL journal of positions opened while the panel runs, and the CSV exports you ask for. Event R Lens Pro also writes the saved queries, manual tags and share cards you ask for.</li></ul>
-<h2 id="who-it-is-for">Who it is for</h2>
-<ul><li><strong>News traders.</strong> See your own results around CPI, NFP and rate decisions, and how your symbol moved after each past release.</li>
-<li><strong>Gold, Nasdaq and Bitcoin traders.</strong> XAUUSD, US indices such as USTEC and BTCUSD are tagged with US events, because their price reacts to them. Currency pairs get the events of both currencies.</li>
-<li><strong>Traders around fixes.</strong> Trades opened or closed within 10 minutes of the Tokyo fix (09:55 JST) or the London fix (16:00 London time) carry a fix tag.</li>
-<li><strong>Prop firm traders.</strong> The panel only reads the account, so it works on any MetaTrader 5 account. Event R Lens Pro checks your history and your open positions against your firm's rules and can warn before a news window or the daily limit.</li>
-<li><strong>Traders who want to change one habit.</strong> The Pro rule simulator shows what a rule would have done to your own past trades.</li>
-<li><strong>Anyone who wants to check their own numbers.</strong> Every input of every calculation is in the audit CSV.</li></ul>
-<h2 id="how-to-check-it">How to check it</h2>
-<p>You can check in about five minutes that the panel only reads your account: see <a href="verify.html">Verify in 5 minutes</a>. Every formula is on the <a href="formulas.html">Formulas</a> page.</p>
-<h2 id="known-limitations">Known limitations</h2>
+<li>Does not collect personal data. It writes only to MQL5 &gt; Files &gt; EventOwl: your display settings, an SL journal of positions opened while the panel runs, and the CSV exports you ask for.</li></ul>
+<h3>EventOwl Pro</h3>
+<ul><li>Does not open, change or close orders or positions. The source code contains no trade functions.</li>
+<li>Does not use WebRequest, sockets or DLLs. Phone alerts are optional and off by default; when you turn them on, MetaTrader sends them with its own push notifications.</li>
+<li>Does not forecast. Every number describes past trades, past market moves or the current account state.</li>
+<li>Does not collect personal data. It writes only to MQL5 &gt; Files &gt; EventOwl: your display settings, your firm preset choice, an SL journal of positions opened while the panel runs, and the files you ask for: CSV exports, saved queries, your manual tags and share cards.</li></ul>
+</div>
+</details>
+<details>
+<summary>What it reads</summary>
+<div class="details-body">
+<ul><li>Your account history: deals and orders, read with the standard MT5 history functions.</li>
+<li>M1 bars of the symbols you traded.</li>
+<li>The MT5 economic calendar: high-importance events of the currencies you traded.</li>
+<li>Symbol properties and conversion rates, to turn the stop loss distance into money (1R).</li></ul>
+<h3>EventOwl Pro also reads</h3>
+<ul><li>Ticks of the symbols you traded, for trades of the last 30 days by default (input).</li>
+<li>M5 bars of the chart symbol, up to 400 days back, for News reaction.</li>
+<li>More of the MT5 economic calendar: high-importance events of the chart symbol's currencies in the last 400 days (News reaction), and of the chart symbol's and your open positions' currencies in the next 8 days (Event Radar).</li>
+<li>Your open positions and the account equity, for Prop Guard live status and the Event Radar.</li>
+<li>A Strategy Tester HTML report, only if you copy one to MQL5 &gt; Files &gt; EventOwl &gt; import.</li></ul>
+</div>
+</details>
+<details>
+<summary>Known limitations</summary>
+<div class="details-body">
 <ul><li>MAE and MFE come from M1 bars and are approximate. Spread at entry from the M1 bar is approximate too.</li>
 <li>MAE and MFE need the terminal's M1 history. Trades older than it (Tools &gt; Options &gt; Charts &gt; Max bars in chart) show no MAE and MFE, and the panel counts them.</li>
 <li>1R uses current conversion rates for symbols not quoted in the account currency.</li>
@@ -151,10 +232,31 @@
 <li>Economic calendar times are corrected for daylight saving with the broker time model (default: New York + 7 h).</li>
 <li>The economic calendar may not be reachable on some networks; event tags are then off and the panel says so.</li>
 <li>The economic calendar is not available in the Strategy Tester.</li>
-<li>Major events are chosen by event code; the list is on the Formulas page. Set the input to every high-importance event to see the rest.</li></ul>
-<p>The screenshots show a Strategy Tester report of MetaQuotes' sample EA &quot;ExpertMACD&quot; on XAUUSD, marked SIMULATED in the panel, and a demo account. They show how the panel describes trades, not a trading strategy.</p>
+<li>Major events are chosen by event code; the list is published with the formulas. Set the input to every high-importance event to see the rest.</li></ul>
+<h3>In EventOwl Pro</h3>
+<ul><li>Strategy Tester reports have no position ids: positions are matched first in, first out per symbol.</li>
+<li>Replay and reshuffles reuse your own past R values. They do not model future trades or changing markets.</li>
+<li>Firm presets are the rules as published on the date shown, read from each firm's site. Firms change rules, sometimes by purchase date, and measure in different ways; the panel lists where its measure differs. Check your firm's current terms. The panel warns, it never closes positions.</li>
+<li>The rule simulator tests rules on the same past trades that suggested them. With few trades, differences can be chance.</li>
+<li>Tick refinement covers trades of the last 30 days by default (input). Older trades keep the M1 bar spread; how far back ticks reach depends on the broker.</li>
+<li>Prop Guard news windows use every high-importance event, not only the major ones, because firms define news more widely.</li>
+<li>News reaction uses the terminal's M5 history (up to 400 days back) and the calendar's own better or worse flag. A past tendency does not say what the next release will do.</li>
+<li>Phone alerts need your MetaQuotes ID in Tools &gt; Options &gt; Notifications. MetaTrader limits how many notifications it sends per minute.</li></ul>
 </div>
+</details>
+</div>
+</div>
+</section>
+<section class="band">
+<div class="wrap">
+<div class="links">
+<a class="link-card" href="verify.html"><strong>Verify in 5 minutes</strong><span>Three checks that it only reads your account.</span></a>
+<a class="link-card" href="formulas.html"><strong>Formulas</strong><span>Every number and how it is calculated.</span></a>
+<a class="link-card" href="faq.html"><strong>FAQ</strong><span>Short answers to common questions.</span></a>
+</div>
+</div>
+</section>
 </main>
-<footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
+<footer><div class="wrap"><p>EventOwl and EventOwl Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes what already happened and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
 </body>
 </html>

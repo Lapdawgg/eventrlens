@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#181a1f">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Event R Lens">
+<meta property="og:site_name" content="EventOwl">
 <meta property="og:title" content="How to calculate the R multiple of MT5 trades">
 <meta property="og:description" content="Calculate the R multiple (net result divided by initial risk) of closed MetaTrader 5 trades from the stop loss on the entry deal, with MQL5 code and the pitfalls.">
 <meta name="twitter:card" content="summary_large_image">
@@ -18,12 +18,12 @@
 <meta property="og:image" content="https://lapdawgg.github.io/eventrlens/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Event R Lens: Your MT5 trades, broken down by economic event, session and fix window.">
+<meta property="og:image:alt" content="EventOwl: Your MT5 trades, broken down by economic event, session and fix window.">
 <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">Event R Lens</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html" aria-current="page">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">EventOwl</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html" aria-current="page">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
 <main class="wrap">
 <h1>How to calculate the R multiple of MT5 trades</h1>
 <p>The R multiple of a trade is its net result divided by its initial risk. In MetaTrader 5, the initial risk is the loss the first entry would have made at its stop loss: read the stop loss from the entry deal (<code>DEAL_SL</code>), and ask MetaTrader for the money with <code>OrderCalcProfit</code>. The net result is profit + swap + commission + fee of all deals of the position.</p>
@@ -66,8 +66,8 @@ bool PositionR(const long position_id, double &amp;r)
 <li><strong>Costs belong to the result.</strong> Commission and swap are part of the net result, so a trade closed exactly at its stop loss has an R slightly below -1.</li>
 <li><strong>Breakeven.</strong> Treat a small band around zero, for example between -0.05R and +0.05R, as breakeven, so that rounding does not create wins and losses.</li>
 <li><strong>Netting reversals.</strong> A single deal can close one position and open the opposite one (DEAL_ENTRY_INOUT). Split it into two trades first.</li></ul>
-<p>Event R Lens calculates the R multiple of every trade this way and shows which inputs it used for each one.</p>
+<p>EventOwl calculates the R multiple of every trade this way and shows which inputs it used for each one.</p>
 </main>
-<footer><div class="wrap"><p>Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes past trades and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
+<footer><div class="wrap"><p>EventOwl and EventOwl Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes what already happened and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
 </body>
 </html>

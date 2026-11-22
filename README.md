@@ -1,6 +1,6 @@
-# Event R Lens
+# EventOwl
 
-![Event R Lens](og.png)
+![EventOwl](og.png)
 
 **Your MT5 trades, broken down by economic event, session and fix window.**
 
@@ -12,6 +12,6 @@ Documentation: https://lapdawgg.github.io/eventrlens/
 - [Verify in 5 minutes](https://lapdawgg.github.io/eventrlens/verify.html): check that it only reads your account
 - [Guides](https://lapdawgg.github.io/eventrlens/guides.html): MAE and MFE, economic calendar tags and the R multiple in MQL5
 
-This repository holds only the built documentation site of Event R Lens and Event R Lens Pro 1.00 for MetaTrader 5. The product source code is not here.
+This repository holds only the built documentation site of EventOwl and EventOwl Pro 1.00 for MetaTrader 5. The product source code is not here.
 
 Last updated 2026-11-22.
