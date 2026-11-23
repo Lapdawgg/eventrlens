@@ -4,7 +4,7 @@
 
 **Your MT5 trades, broken down by economic event, session and fix window.**
 
-Shows the R multiple, MAE and MFE of every closed trade and the major economic event and fix window near it, breaks your results down by session, symbol and direction, and says in plain words what stands out. A read-only panel. It never opens, changes or closes orders.
+Shows the R multiple, MAE and MFE of every closed trade and the major economic event and fix window near it, draws the equity curve of your closed trades with its max drawdown, breaks your results down by session, symbol, direction, weekday, hour and magic number, and says in plain words what stands out. A read-only panel. It never opens, changes or closes orders.
 
 Documentation: https://lapdawgg.github.io/eventrlens/
 
@@ -14,12 +14,14 @@ Documentation: https://lapdawgg.github.io/eventrlens/
 
 ## EventOwl (Free)
 - Builds trades from the account history: partial closes, netting reversals, separate commission deals and swaps
-- R multiple of every trade from its initial stop loss; optional 1R rule for trades without a stop loss
+- R multiple of every trade from its initial stop loss; for trades without a stop loss, an optional 1R: a fixed amount or a percent of the balance at entry
 - MAE and MFE of every trade in price, money and R
-- Spread at entry from M1 bars
-- Every trade marked with the major economic event near it (rate decisions, NFP, CPI, PCE, GDP, retail sales, jobs), its session and its Tokyo or London fix window; an input switches to every high-importance event
+- Spread at entry from M1 bars; slippage of pending orders, the fill against the order price
+- Every trade marked with the major economic event within 15 minutes of its entry or exit (rate decisions, NFP, CPI, PCE, GDP, retail sales, jobs), its session and its Tokyo (09:55 JST) or London (16:00) fix window; inputs set the window and switch to every high-importance event
 - What stands out: the top and bottom group by mean R, each with its trade count and 95% range, and your trades near major events compared with the other trades, in plain words
-- Breakdown tables by session, symbol and direction
+- Equity curve of your closed trades, in money or in R, with the max drawdown marked; profit factor, max drawdown and the longest losing streak
+- Breakdown tables by session, symbol, direction, weekday, hour of entry and magic number
+- Period filter for the Overview, the trade list and the Breakdown tables: all time, this year, the last 90 or 30 days
 - Trade list with every input of every calculation
 - Audit CSV export of every input and result
 - Reconcile view: totals compared with the account balance
@@ -37,7 +39,7 @@ Documentation: https://lapdawgg.github.io/eventrlens/
 - Strategy Tester report import, shown as a simulated dataset and never mixed with the account history
 - Your own tags from comment keywords and magic numbers
 - Share card: a PNG of a query result without account number, broker or money amounts
-- Also included: the trade list with R, MAE and MFE, event, session and fix tags, What stands out, the session, symbol and direction breakdowns, the audit CSV and Reconcile
+- Also included: the trade list with R, MAE and MFE, event, session and fix tags, the equity curve with max drawdown and profit factor, the period filter, What stands out, the session, symbol, direction, weekday, hour and magic number breakdowns, the audit CSV and Reconcile
 
 ## Questions it answers
 - How did my own trades do around NFP, CPI, rate decisions and other major releases? EventOwl marks every closed trade with the release near it; EventOwl Pro adds results by event.
@@ -56,4 +58,4 @@ Vote for what comes next: [open ideas, most votes first](https://github.com/Lapd
 
 This repository holds only the built documentation site of EventOwl and EventOwl Pro 1.00 for MetaTrader 5. The product source code is not here.
 
-Last updated 2026-11-22.
+Last updated 2026-11-23.

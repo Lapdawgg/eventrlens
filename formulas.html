@@ -69,7 +69,11 @@
 <li><strong>From M1 bars, in both editions:</strong><ul><li>Bars from the minute of entry to the minute of exit, both included.</li>
 <li>LONG uses bid bars.</li>
 <li>SHORT uses ask approximated as bid + the bar's spread (flag <code>short_ask_from_bar_spread</code>).</li>
-<li>The first and last bars include prices from before entry and after exit, so M1 values are approximate (flag <code>excursion_m1_approx</code>).</li></ul>
+<li><strong>Edge minutes:</strong> The bar of the entry minute also holds prices from before the entry, and the bar of the exit minute prices from after the exit. While a stop loss or a take profit is in place, the price cannot pass it without closing the trade, so:<ul><li>Entry minute: the adverse side ends at the SL and the favourable side at the TP that the entry deal carried. Only an SL or TP recorded on the entry deal counts; a stop found in the journal or an estimated 1R does not.</li>
+<li>Exit minute: an exit by the stop loss ends the adverse side at the exit price; an exit by the take profit ends the favourable side there. Any other exit was not stopped, so the adverse side of that minute ends at the SL in place at the exit; and it was not taken at the target, so the favourable side ends at the TP in place at the exit. The account history records those levels on the exit deal. A Strategy Tester report does not: there the SL and TP set with the entry stand in, and a stop or target moved later can make this cut too wide or too narrow.</li>
+<li>The price of the last exit deal is always part of the path (bid for LONG, ask for SHORT). MAE is never smaller than the adverse distance to it, and MFE never smaller than the favourable distance.</li></ul>
+</li>
+<li>The rest of the edge bars and the SHORT ask stay approximate (flag <code>excursion_m1_approx</code>). A stop moved within the minute of entry is not seen.</li></ul>
 </li>
 <li><strong>No tick option:</strong> MAE and MFE always come from M1 bars. Ticks are used only for the spread at entry and the slippage, in EventOwl Pro (section 4).</li>
 <li><strong>Money:</strong> The price move applied to the total volume from the weighted entry price, through the same conversion as 1R.</li>
@@ -117,7 +121,7 @@
 </li>
 <li><strong>Duplicates:</strong> Removed.</li></ul>
 <h2 id="10-query-statistics">10. Query statistics</h2>
-<ul><li><strong>Filters:</strong> symbol, direction, event, session, fix, tag, weekday and hour of entry (server time). Only closed trades are counted.</li>
+<ul><li><strong>Filters:</strong> symbol, direction, event, session, fix, tag, weekday and hour of entry (server time), magic number, and the period (exit time). Only closed trades are counted.</li>
 <li><strong>Event, fix and tag filters:</strong><ul><li>&quot;any&quot;: no filter.</li>
 <li>&quot;*&quot;: any non-empty value.</li>
 <li>&quot;-&quot;: none.</li>
@@ -130,6 +134,8 @@
 <li><strong>Max MAE:</strong> Largest MAE in R and in money.</li>
 <li><strong>Longest losing streak:</strong> Consecutive losses by exit time; a breakeven ends the streak.</li>
 <li><strong>Total net:</strong> Sum of net results.</li>
+<li><strong>Profit factor:</strong> Gross profit / gross loss: the sum of the net results above +0.005, divided by the sum of the net results below -0.005 (as a positive number), the same threshold as the outcome rule. None when no trade lost money.</li>
+<li><strong>Max drawdown:</strong> The trades in exit order build a running sum of net results that starts at 0. The max drawdown is the largest fall from the highest value so far to a later value. The same is done with R, over the trades with R. Open positions, deposits and withdrawals are not part of it.</li>
 <li><strong>Estimated R:</strong> Trades with an estimated 1R are counted and shown separately. They can be excluded.</li>
 <li><strong>Sample warnings:</strong><ul><li>N &lt; 30: &quot;small sample&quot;.</li>
 <li>Fewer than 10 trades with R: no mean, median or CI; the raw list only.</li></ul>
@@ -168,8 +174,9 @@
 <h2 id="15-pro-strategy-tester-report-import">15. Pro: Strategy Tester report import</h2>
 <ul><li><strong>File:</strong> HTML report saved from the Strategy Tester, copied to <code>MQL5\Files\EventOwl\import\</code>. UTF-16 and UTF-8 are read.</li>
 <li><strong>Deals table:</strong> time, deal, symbol, type, direction (in, out, in/out, out by), volume, price, order, commission, swap, profit, balance, comment.</li>
-<li><strong>Orders table:</strong> the stop loss of each order. The SL of the order that opened a position is its initial SL (1R).</li>
-<li><strong>Position ids:</strong> The report has none. Positions are matched first in, first out per symbol; an exit deal that closes several positions is split by volume (profit, commission and swap in proportion).</li>
+<li><strong>Orders table:</strong> the stop loss and take profit of each order. The SL of the order that opened a position is its initial SL (1R); its SL and TP also cut the minute of entry (section 3).</li>
+<li><strong>Exit reason:</strong> The Strategy Tester writes <code>sl &lt;price&gt;</code>, <code>tp &lt;price&gt;</code> or <code>so &lt;...&gt;</code> as the comment of an exit by the stop loss, the take profit or a stop out. Any other exit counts as closed by the expert.</li>
+<li><strong>Position ids:</strong> The report has none, and a hedging test can hold several positions of one symbol at once. An exit that one open position can take whole goes, among those that can: (1) to the one whose entry price explains the deal's profit, (exit price - entry) x direction x volume x the symbol's value per price unit, learnt from exits that had a single candidate, within 0.5% or 0.02; (2) else to the one whose order carried the stop loss or take profit level named in the comment, to the comment's own decimals, an exact volume first; (3) else to the oldest. An exit that no single position can take is matched first in, first out per symbol; an exit deal that closes several positions is split by volume (profit, commission and swap in proportion).</li>
 <li><strong>Reconcile:</strong> The sum of all deals (deposit included) vs. the report's final balance; the report's totals row is also checked.</li>
 <li>Every imported trade carries the flag <code>simulated_tester_report</code>. The simulated set is never mixed with the account history. No tick refinement.</li></ul>
 <h2 id="16-pro-share-card">16. Pro: share card</h2>
@@ -228,9 +235,9 @@
 <li><strong>Minimum holding time:</strong> From presets only; there is no input. History lists each trade whose time from entry to exit (section 1) is shorter than the preset's minimum.</li>
 <li><strong>Measurement differences:</strong> Firms measure in different ways (for example the higher of balance and equity at the day start, or another reset time). The panel says so and never closes positions.</li></ul>
 <h2 id="20-what-stands-out">20. What stands out</h2>
-<ul><li><strong>Groups:</strong> Every group of the breakdown dimensions in the edition (free: session, symbol, direction; Pro: also event and fix) with at least 10 closed trades with R. A dimension with only one group (for example a single symbol) is skipped.</li>
-<li><strong>Lines:</strong> The group with the highest mean R (if above 0) and the one with the lowest (if below 0), each with its 95% range (400 bootstrap resamples), trade count and hit rate. If the range includes 0, the line says the difference can be chance.</li>
-<li><strong>Events:</strong> Mean R with its 95% range (400 bootstrap resamples) and trade count of the trades near a major event, next to the same for the other trades, when both groups have at least 10 trades with R. &quot;Near&quot; means an event tag of section 6; with the input set to every high-importance event, the line compares those instead. When the two ranges overlap, the line says the difference can be chance.</li>
+<ul><li><strong>Groups:</strong> Every group of the breakdown dimensions in the edition (free: session, symbol, direction, weekday, hour, magic number; Pro: also event and fix) with at least 10 closed trades with R, in the chosen period. A dimension with only one group (for example a single symbol), or with more than 60 groups (for example a magic number per trade), is skipped.</li>
+<li><strong>Lines:</strong> The group with the highest mean R (if above 0) and the one with the lowest (if below 0), each with its 95% range (the bootstrap of section 10: 2,000 resamples, fixed seed, so a group shows the same range here as in the Breakdown tab), trade count and hit rate. If the range includes 0, the line says the difference can be chance. If it does not, the line says how many groups were compared: the highest of many groups stands out partly by chance. The trade count is of the trades with R; the hit rate is of all trades of the group.</li>
+<li><strong>Events:</strong> Mean R with its 95% range (the same bootstrap) and trade count of the trades near a major event, next to the same for the other trades, when both groups have at least 10 trades with R. &quot;Near&quot; means an event tag of section 6; with the input set to every high-importance event, the line compares those instead. When the two ranges overlap, the line says the difference can be chance.</li>
 <li><strong>Nothing to say:</strong> With fewer trades the card says how many trades with R there are.</li></ul>
 <h2 id="21-pro-news-reaction">21. Pro: News reaction</h2>
 <ul><li><strong>Releases:</strong> Major events (or every high-importance event, by input) of the chart symbol's currencies in the last 400 days, at least one hour old.</li>
@@ -252,8 +259,21 @@
 <li><strong>Where the panel measures differently, it says so:</strong> a daily limit from the higher of balance and equity, from the day's highest equity or as a percent of the day-start value; a trailing floor that stops at the initial balance or never stops; a trailing floor that follows equity, which can be closer than the panel shows; where a news rule applies and what happens on a breach; a minimum holding time that is an average, or only affects the profit share.</li>
 <li><strong>Account size:</strong> From the input, else the first deposit.</li>
 <li><strong>No preset:</strong> The rules come from the inputs.</li></ul>
+<h2 id="23-equity-curve-overview">23. Equity curve (Overview)</h2>
+<ul><li><strong>Points:</strong> The closed trades of the period in exit order (server time). Point 0 is 0; point k is the sum of the net results of the first k trades. In R: the sum of R, over the trades with R only.</li>
+<li><strong>Max drawdown:</strong> The largest fall from a running peak to a later point (section 10); the panel marks the peak and the trough, with the peak's level drawn as a dashed line.</li>
+<li><strong>Not included:</strong> Open positions, deposits, withdrawals and balance operations.</li></ul>
+<h2 id="24-period-overview-trades-breakdown">24. Period (Overview, Trades, Breakdown)</h2>
+<ul><li><strong>Choices:</strong> All time, this year (from 1 January of the current server year), the last 90 days, the last 30 days.</li>
+<li><strong>Rule:</strong> A closed trade counts when its exit time (server time) is in the period. The end is now; for a Strategy Tester report it is the report's newest exit.</li>
+<li><strong>What changes:</strong> The tiles, the equity curve, What stands out, the Breakdown tables and the trade list. Open positions stay in the trade list. Reconcile always covers the whole history, because it compares it with the balance.</li>
+<li><strong>Pro tabs:</strong> Radar, News reaction, Query, Big R, Rules, Replay and Prop Guard use the whole history.</li></ul>
+<h2 id="25-weekday-hour-and-magic-number-groups-breakdown">25. Weekday, hour and magic number groups (Breakdown)</h2>
+<ul><li><strong>Weekday:</strong> Day of the entry, server time; Monday first.</li>
+<li><strong>Hour:</strong> Hour of the entry, server time; &quot;14:00&quot; means 14:00 to 14:59. Hours in clock order.</li>
+<li><strong>Magic number:</strong> The magic number of the first entry deal. &quot;0 (manual)&quot; is magic 0, which manual trades carry. A Strategy Tester report has no magic numbers: its trades show &quot;not in the report&quot;.</li></ul>
 <h2 id="known-limitations">Known limitations</h2>
-<ul><li><strong>M1 approximation:</strong> MAE/MFE from M1 is approximate (edge bars; SHORT ask from bar spread).</li>
+<ul><li><strong>M1 approximation:</strong> MAE/MFE from M1 is approximate: the edge bars are cut only where a stop, a target or the exit price shows where the trade was (section 3), and the SHORT ask comes from the bar spread.</li>
 <li><strong>M1 depth:</strong> The terminal keeps M1 bars only back to a limit (Tools &gt; Options &gt; Charts &gt; Max bars in chart; 100,000 bars is about 4 to 5 months). Older trades show no MAE/MFE and are counted as &quot;no price data&quot;. After 3 empty requests in a row for a symbol, older trades of that symbol are not requested again until Refresh.</li>
 <li><strong>Tick depth:</strong> Tick data at IC Markets reaches about 6 months back for USTEC/BTCUSD.</li>
 <li><strong>Conversion rates:</strong> 1R and excursion money use current conversion rates for non-USD-quoted symbols.</li>
@@ -261,6 +281,6 @@
 <li><strong>Calendar network:</strong> The economic calendar may not be reachable on some networks; event tags are then off.</li>
 <li><strong>Strategy Tester:</strong> The calendar is not available in the Strategy Tester.</li></ul>
 </main>
-<footer><div class="wrap"><p>EventOwl and EventOwl Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes what already happened and does not forecast.</p><p>Contact: <a href="https://github.com/Lapdawgg/eventrlens/issues">GitHub issues</a>, or a private message to the author on MQL5.com.</p><p>Last updated 2026-11-22.</p></div></footer>
+<footer><div class="wrap"><p>EventOwl and EventOwl Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes what already happened and does not forecast.</p><p>Contact: <a href="https://github.com/Lapdawgg/eventrlens/issues">GitHub issues</a>, or a private message to the author on MQL5.com.</p><p>Last updated 2026-11-23.</p></div></footer>
 </body>
 </html>

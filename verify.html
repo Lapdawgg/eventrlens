@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Verify in 5 minutes that EventOwl only reads your account</title>
-<meta name="description" content="Three checks that take about five minutes - turn Algo Trading off, compare Reconcile with your balance, and recompute a trade from the audit CSV.">
+<meta name="description" content="Three checks that take about five minutes - untick Allow Algo Trading for the panel, compare Reconcile with your balance, and recompute a trade from the audit CSV.">
 <link rel="canonical" href="https://lapdawgg.github.io/eventrlens/verify.html">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="EventOwl">
 <meta property="og:title" content="Verify in 5 minutes that EventOwl only reads your account">
-<meta property="og:description" content="Three checks that take about five minutes - turn Algo Trading off, compare Reconcile with your balance, and recompute a trade from the audit CSV.">
+<meta property="og:description" content="Three checks that take about five minutes - untick Allow Algo Trading for the panel, compare Reconcile with your balance, and recompute a trade from the audit CSV.">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:url" content="https://lapdawgg.github.io/eventrlens/verify.html">
 <meta property="og:image" content="https://lapdawgg.github.io/eventrlens/og.png">
@@ -26,13 +26,14 @@
 <header><div class="wrap"><a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: dark)" srcset="owl-silver.png"><img src="owl-graphite.png" width="22" height="36" alt=""></picture>EventOwl</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html" aria-current="page">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html">Guides</a> <a href="changelog.html">Changelog</a></nav><a class="nav-cta" href="index.html#pro"><span>Be exclusive</span></a></div></header>
 <main class="wrap">
 <h1>Verify in 5 minutes that EventOwl only reads your account</h1>
-<p>You can check in about five minutes that EventOwl only reads your account and that its numbers are right: turn Algo Trading off and see that the panel keeps working, compare its Reconcile box with your account balance, and recompute one trade from the audit CSV.</p>
+<p>You can check in about five minutes that EventOwl only reads your account and that its numbers are right: untick Allow Algo Trading for the panel and see that it keeps working, compare its Reconcile box with your account balance, and recompute one trade from the audit CSV.</p>
 <h2 id="the-three-checks">The three checks</h2>
-<ul><li>Turn Algo Trading off. The panel still works, because it never sends orders.</li>
+<ul><li>In the panel's properties (F7), Common tab, untick Allow Algo Trading. The panel still works, because it never sends orders. Your other Expert Advisors are not affected.</li>
 <li>Open the Overview tab: Reconcile compares the sum of all deals with your account balance.</li>
 <li>Press Export CSV and recompute any number from its inputs in Excel or with your own tools.</li></ul>
-<h2 id="1-algo-trading-off">1. Algo Trading off</h2>
-<p>Click the Algo Trading button in the MetaTrader 5 toolbar so that it is off. While it is off, the terminal refuses every order request from an Expert Advisor. Now use the panel: switch tabs, press Refresh, export a CSV. Everything keeps working, because the panel never sends orders.</p>
+<h2 id="1-algo-trading-off-for-the-panel">1. Algo Trading off for the panel</h2>
+<p>Press F7 on the panel's chart, open the Common tab and untick Allow Algo Trading. Without it, the terminal refuses every order request from this program. Now use the panel: switch tabs, press Refresh, export a CSV. Everything keeps working, because the panel never sends orders.</p>
+<p>The Algo Trading button in the toolbar works too, but it switches trading off for every Expert Advisor, including the ones you trade with. The setting in the Common tab affects only the panel.</p>
 <p>You can also open the Journal tab of the Toolbox (Ctrl+T) while you use the panel. Every order request appears there, including refused ones. The panel leaves no order lines.</p>
 <h2 id="2-reconcile">2. Reconcile</h2>
 <p>The Overview tab has a Reconcile box. It adds up every deal in the history: profit, swap, commission and fee of every trade, plus deposits and withdrawals. It compares the sum with your account balance. With the full history loaded, the difference is 0.00.</p>
@@ -53,6 +54,6 @@
 <h2 id="what-else-is-checked-before-each-release">What else is checked before each release</h2>
 <p>A script scans the source code before every build and fails the build if it finds a trade function, WebRequest, a socket function or a DLL import. A second script checks that the store text, this site and the panel's About tab say the same things.</p>
 </main>
-<footer><div class="wrap"><p>EventOwl and EventOwl Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes what already happened and does not forecast.</p><p>Contact: <a href="https://github.com/Lapdawgg/eventrlens/issues">GitHub issues</a>, or a private message to the author on MQL5.com.</p><p>Last updated 2026-11-22.</p></div></footer>
+<footer><div class="wrap"><p>EventOwl and EventOwl Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes what already happened and does not forecast.</p><p>Contact: <a href="https://github.com/Lapdawgg/eventrlens/issues">GitHub issues</a>, or a private message to the author on MQL5.com.</p><p>Last updated 2026-11-23.</p></div></footer>
 </body>
 </html>
