@@ -24,6 +24,7 @@ Documentation: https://lapdawgg.github.io/eventrlens/
 - Period filter for the Overview, the trade list and the Breakdown tables: all time, this year, the last 90 or 30 days
 - Trade list with every input of every calculation
 - Audit CSV export of every input and result
+- Export for phone: one HTML file with the Overview numbers, the equity curve, What stands out, the breakdown tables and the last 50 trades, laid out for a phone screen. No scripts or links, and no account number or name unless an input adds them; copy the file to your phone in any way you like
 - Reconcile view: totals compared with the account balance
 
 ## EventOwl Pro adds (59 USD)
@@ -39,7 +40,7 @@ Documentation: https://lapdawgg.github.io/eventrlens/
 - Strategy Tester report import, shown as a simulated dataset and never mixed with the account history
 - Your own tags from comment keywords and magic numbers
 - Share card: a PNG of a query result without account number, broker or money amounts
-- Also included: the trade list with R, MAE and MFE, event, session and fix tags, the equity curve with max drawdown and profit factor, the period filter, What stands out, the session, symbol, direction, weekday, hour and magic number breakdowns, the audit CSV and Reconcile
+- Also included: the trade list with R, MAE and MFE, event, session and fix tags, the equity curve with max drawdown and profit factor, the period filter, What stands out, the session, symbol, direction, weekday, hour and magic number breakdowns, the audit CSV, Export for phone (one HTML file for your phone, with the event and fix tables too) and Reconcile
 
 ## Questions it answers
 - How did my own trades do around NFP, CPI, rate decisions and other major releases? EventOwl marks every closed trade with the release near it; EventOwl Pro adds results by event.

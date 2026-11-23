@@ -16,6 +16,7 @@ A read-only panel. It never opens, changes or closes orders. Version 1.00 for Me
 - Period filter for the Overview, the trade list and the Breakdown tables: all time, this year, the last 90 or 30 days
 - Trade list with every input of every calculation
 - Audit CSV export of every input and result
+- Export for phone: one HTML file with the Overview numbers, the equity curve, What stands out, the breakdown tables and the last 50 trades, laid out for a phone screen. No scripts or links, and no account number or name unless an input adds them; copy the file to your phone in any way you like
 - Reconcile view: totals compared with the account balance
 
 ## EventOwl Pro adds
@@ -31,7 +32,7 @@ A read-only panel. It never opens, changes or closes orders. Version 1.00 for Me
 - Strategy Tester report import, shown as a simulated dataset and never mixed with the account history
 - Your own tags from comment keywords and magic numbers
 - Share card: a PNG of a query result without account number, broker or money amounts
-- Also included: the trade list with R, MAE and MFE, event, session and fix tags, the equity curve with max drawdown and profit factor, the period filter, What stands out, the session, symbol, direction, weekday, hour and magic number breakdowns, the audit CSV and Reconcile
+- Also included: the trade list with R, MAE and MFE, event, session and fix tags, the equity curve with max drawdown and profit factor, the period filter, What stands out, the session, symbol, direction, weekday, hour and magic number breakdowns, the audit CSV, Export for phone (one HTML file for your phone, with the event and fix tables too) and Reconcile
 
 ## What EventOwl does not do
 - Does not open, change or close orders or positions. The source code contains no trade functions.
@@ -68,7 +69,7 @@ A read-only panel. It never opens, changes or closes orders. Version 1.00 for Me
 - The economic calendar is not available in the Strategy Tester.
 - It is an Expert Advisor, and a chart runs one Expert Advisor: open a new chart for it. Attached to a chart, it replaces the Expert Advisor running there.
 - Major events are chosen by event code; the list is published with the formulas. Set the input to every high-importance event to see the rest.
-- Strategy Tester reports have no position ids: an exit goes to the open position whose entry price explains its profit, or whose order carried the stop or target level in its comment; otherwise positions are matched first in, first out per symbol.
+- Strategy Tester reports have no position ids and do not say whether the account was netting or hedging. A reversal (in/out) deal, or an exit larger than any one entry, marks a netting report, read like a live netting account: one position per symbol. Without that sign each entry deal is a position, so a netting report then shows its scale-ins as separate trades: an exit goes to the open position whose entry price explains its profit, or whose order carried the stop or target level in its comment, else first in, first out per symbol.
 - Replay and reshuffles reuse your own past R values. They do not model future trades or changing markets.
 - Firm presets are the rules as published on the date shown, read from each firm's site. Firms change rules, sometimes by purchase date, and measure in different ways; the panel lists where its measure differs. Check your firm's current terms. The panel warns, it never closes positions.
 - The rule simulator tests rules on the same past trades that suggested them. With few trades, differences can be chance.
