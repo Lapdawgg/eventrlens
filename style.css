@@ -233,6 +233,60 @@ summary::-webkit-details-marker { color: var(--muted); }
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .50), inset 0 -1px 0 rgba(0, 0, 0, .12), 0 10px 30px rgba(0, 113, 227, .32);
 }
 .btn.primary:hover { background: linear-gradient(180deg, rgba(255, 255, 255, .36), rgba(255, 255, 255, 0) 55%), rgba(0, 104, 209, .9); }
+
+/* "Be exclusive": glass over a blue-violet fill, inside a slowly turning colour ring */
+@property --eo-a { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+.btn.exclusive, .nav-cta {
+  color: #ffffff; border: 1.5px solid transparent;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, 0) 55%) padding-box,
+    linear-gradient(135deg, #0a84ff, #5e5ce6 60%, #bf5af2) padding-box,
+    conic-gradient(from var(--eo-a), #64d2ff, #bf5af2, #ff9f0a, #30d158, #64d2ff) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 10px 34px rgba(94, 92, 230, .38);
+  animation: eo-spin 5s linear infinite;
+}
+.btn.exclusive:hover { background:
+    linear-gradient(180deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, 0) 55%) padding-box,
+    linear-gradient(135deg, #2b95ff, #6e6cf0 60%, #c86cf5) padding-box,
+    conic-gradient(from var(--eo-a), #64d2ff, #bf5af2, #ff9f0a, #30d158, #64d2ff) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 14px 44px rgba(94, 92, 230, .5); }
+.btn.exclusive.soon { cursor: default; }
+@keyframes eo-spin { to { --eo-a: 360deg; } }
+.nav-cta {
+  flex: none; margin-left: 6px; padding: 7px 13px; border-radius: 999px; font-size: 13px; font-weight: 600; line-height: 1;
+  white-space: nowrap; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 4px 14px rgba(94, 92, 230, .32);
+}
+.nav-cta:hover { text-decoration: none; }
+.cta.center { text-align: center; margin-top: 26px; }
+
+/* ---------- Pro: "Be exclusive" ---------- */
+.pro-band { position: relative; overflow: hidden; }
+.pro-band::before {
+  content: ""; position: absolute; inset: -20% -10% auto; height: 520px; pointer-events: none;
+  background: radial-gradient(50% 60% at 30% 30%, rgba(94, 92, 230, .16), transparent 70%),
+              radial-gradient(45% 55% at 75% 25%, rgba(10, 132, 255, .14), transparent 70%);
+}
+.pro-band .wrap { position: relative; }
+.pro-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+@media (min-width: 760px) { .pro-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } }
+.pro-tile {
+  padding: 22px 22px 24px; border-radius: 22px; border: 1px solid var(--btn-edge);
+  background: linear-gradient(180deg, var(--btn-sheen), transparent 40%), var(--btn-glass);
+  box-shadow: inset 0 1px 0 var(--btn-hi), var(--shadow-sm);
+  -webkit-backdrop-filter: blur(18px) saturate(170%); backdrop-filter: blur(18px) saturate(170%);
+}
+.pro-tile h3 { margin: 12px 0 6px; font-size: 19px; }
+.pro-tile p { margin: 0; color: var(--fg-2); font-size: 15px; line-height: 1.5; }
+.pro-ico {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; color: #ffffff;
+  background: linear-gradient(135deg, #0a84ff, #5e5ce6); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45), 0 6px 18px rgba(94, 92, 230, .3);
+}
+.launch { margin: 28px auto 0; max-width: 640px; text-align: center; }
+.launch-price { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 0; }
+.launch-price strong { font-family: var(--font-display); font-size: clamp(34px, 6vw, 48px); letter-spacing: -0.03em; color: var(--fg); }
+.launch-price strong { line-height: 1; }
+.launch-price span { color: var(--fg-2); font-size: 15px; max-width: 460px; line-height: 1.45; }
+.launch .cta { margin-top: 16px; }
 @media (max-width: 479px) { .hero .cta .btn { flex: 1 1 100%; max-width: 340px; } }
 .chip {
   display: inline-flex; align-items: center; gap: 5px; margin: 0; padding: 4px 10px; border-radius: 999px;
@@ -364,31 +418,34 @@ summary::-webkit-details-marker { color: var(--muted); }
 footer { background: var(--bg-alt); border-top: 1px solid var(--line-soft); color: var(--muted); font-size: 12.5px; line-height: 1.5; padding: 22px 0 40px; }
 footer p { margin: 0 0 6px; max-width: 820px; }
 
-/* ---------- motion: small growth on hover (pointer devices only), gentle entrance ---------- */
-.btn, .card, .rm-item, .trust li, .link-card {
-  transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), background-color var(--t) var(--ease), border-color var(--t) var(--ease), color var(--t) var(--ease);
+/* ---------- motion: the hero text rises in on load, cards rise in as they scroll into view, buttons grow
+   a little under the pointer. With "reduce motion" set in the system: shorter rises, no scroll effects, no
+   turning ring. ---------- */
+.btn, .card, .rm-item, .trust li, .link-card, .pro-tile, .nav-cta, .rm-votebtn {
+  transition: transform 260ms var(--ease), box-shadow 260ms var(--ease), background-color var(--t) var(--ease), border-color var(--t) var(--ease), color var(--t) var(--ease);
 }
 @media (hover: hover) {
-  .card:hover, .rm-item:hover, .trust li:hover, .link-card:hover { transform: scale(1.02); box-shadow: var(--shadow-md); }
-  .btn:hover { transform: scale(1.02); }
+  .card:hover, .rm-item:hover, .trust li:hover, .link-card:hover, .pro-tile:hover { transform: translateY(-3px) scale(1.015); box-shadow: var(--shadow-md); }
+  .btn:hover, .nav-cta:hover, .rm-votebtn:hover { transform: scale(1.05); }
   .link-card:hover::after { translate: 4px -50%; }
 }
-.btn:active, .link-card:active { transform: scale(.98); }
+.btn:active, .nav-cta:active, .rm-votebtn:active, .link-card:active { transform: scale(.97); }
+.hero .eyebrow, .hero h1, .hero .lead, .hero .cta, .hero .trailer { animation: eo-rise 900ms var(--ease) both; }
+.hero h1 { animation-delay: 80ms; }
+.hero .lead { animation-delay: 180ms; }
+.hero .cta { animation-delay: 280ms; }
+.hero .trailer { animation-delay: 400ms; }
+.hero .cta .btn.exclusive { animation: eo-spin 5s linear infinite; }
 @media (prefers-reduced-motion: no-preference) {
-  .hero .eyebrow, .hero h1, .hero .lead, .hero .cta, .hero .trailer { animation: eo-rise 800ms var(--ease) both; }
-  .hero h1 { animation-delay: 60ms; }
-  .hero .lead { animation-delay: 120ms; }
-  .hero .cta { animation-delay: 180ms; }
-  .hero .trailer { animation-delay: 260ms; }
   @supports (animation-timeline: view()) {
-    .rm-item, .card, .trust li, .link-card { animation: eo-reveal linear both; animation-timeline: view(); animation-range: entry 0% cover 22%; }
+    .section-head, .pro-tile, .rm-item, .card, .trust li, .link-card, .launch { animation: eo-reveal linear both; animation-timeline: view(); animation-range: entry 0% cover 24%; }
   }
 }
-@keyframes eo-rise { from { opacity: .2; translate: 0 16px; } to { opacity: 1; translate: 0 0; } }
-@keyframes eo-reveal { from { opacity: .35; translate: 0 22px; } to { opacity: 1; translate: 0 0; } }
+@keyframes eo-rise { from { opacity: 0; translate: 0 34px; } to { opacity: 1; translate: 0 0; } }
+@keyframes eo-reveal { from { opacity: 0; translate: 0 30px; } to { opacity: 1; translate: 0 0; } }
+@keyframes eo-rise-short { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { animation: none !important; transition-duration: 1ms !important; }
-  .card:hover, .rm-item:hover, .trust li:hover, .link-card:hover, .btn:hover, .btn:active, .link-card:active { transform: none; }
-  .link-card:hover::after { translate: 0 -50%; }
+  .hero .eyebrow, .hero h1, .hero .lead, .hero .cta, .hero .trailer { animation-name: eo-rise-short; animation-duration: 600ms; }
+  .btn.exclusive, .nav-cta, .hero .cta .btn.exclusive { animation: none; }
 }

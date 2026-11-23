@@ -23,7 +23,7 @@
 
 </head>
 <body class="sub">
-<header><div class="wrap"><a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: dark)" srcset="owl-silver.png"><img src="owl-graphite.png" width="22" height="36" alt=""></picture>EventOwl</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html" aria-current="page">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
+<header><div class="wrap"><a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: dark)" srcset="owl-silver.png"><img src="owl-graphite.png" width="22" height="36" alt=""></picture>EventOwl</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html" aria-current="page">Guides</a> <a href="changelog.html">Changelog</a></nav><a class="nav-cta" href="index.html#pro">Be exclusive</a></div></header>
 <main class="wrap">
 <h1>How to tag MT5 trades by economic calendar events</h1>
 <p>To tag a MetaTrader 5 trade with economic events, read the built-in calendar with <code>CalendarValueHistory</code> for the symbol's currency, keep the high-importance events, convert both the event times and the trade time to UTC, and keep the events within a window (for example 15 minutes) of the entry or the exit. Match events by their <code>event_code</code>, not by their name.</p>
@@ -86,6 +86,6 @@ void EventsNear(const datetime trade_server_time, const string currency, const i
 <li><strong>Other brokers.</strong> If your broker's server time follows other rules, replace <code>ServerToUtc</code> with its model.</li></ul>
 <p>EventOwl tags every trade this way, by default with the major events only (rate decisions, NFP, CPI, PCE, GDP, retail sales and jobs reports), and EventOwl Pro also breaks down your results by event and fix window.</p>
 </main>
-<footer><div class="wrap"><p>EventOwl and EventOwl Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes what already happened and does not forecast.</p><p>Last updated 2026-11-22.</p></div></footer>
+<footer><div class="wrap"><p>EventOwl and EventOwl Pro 1.00 for MetaTrader 5. A read-only panel. It never opens, changes or closes orders. It describes what already happened and does not forecast.</p><p>Contact: <a href="https://github.com/Lapdawgg/eventrlens/issues">GitHub issues</a>, or a private message to the author on MQL5.com.</p><p>Last updated 2026-11-22.</p></div></footer>
 </body>
 </html>
