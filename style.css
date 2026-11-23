@@ -33,6 +33,7 @@
   --glow: rgba(0, 113, 227, .10);
   --btn-glass: rgba(255, 255, 255, .58); --btn-glass-hover: rgba(255, 255, 255, .78); --btn-edge: rgba(0, 0, 0, .10);
   --btn-sheen: rgba(255, 255, 255, .70); --btn-hi: rgba(255, 255, 255, .95); --btn-drop: rgba(0, 0, 0, .08); --btn-fg: var(--link);
+  --silver-edge: rgba(0, 0, 0, .16); --silver-drop: rgba(0, 0, 0, .16);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, .04), 0 6px 16px rgba(0, 0, 0, .05);
   --shadow-md: 0 2px 6px rgba(0, 0, 0, .06), 0 18px 40px rgba(0, 0, 0, .11);
   --shadow-lg: 0 4px 14px rgba(0, 0, 0, .08), 0 34px 90px rgba(0, 0, 0, .18);
@@ -72,6 +73,7 @@
     --glow: rgba(214, 220, 232, .11);
     --btn-glass: rgba(255, 255, 255, .07); --btn-glass-hover: rgba(255, 255, 255, .12); --btn-edge: rgba(255, 255, 255, .18);
     --btn-sheen: rgba(255, 255, 255, .14); --btn-hi: rgba(255, 255, 255, .30); --btn-drop: rgba(0, 0, 0, .35); --btn-fg: #f5f5f7;
+    --silver-edge: rgba(255, 255, 255, .55); --silver-drop: rgba(0, 0, 0, .45);
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, .5), 0 6px 16px rgba(0, 0, 0, .35);
     --shadow-md: 0 2px 8px rgba(0, 0, 0, .55), 0 18px 44px rgba(0, 0, 0, .55);
     --shadow-lg: 0 4px 16px rgba(0, 0, 0, .6), 0 34px 90px rgba(0, 0, 0, .7);
@@ -234,29 +236,28 @@ summary::-webkit-details-marker { color: var(--muted); }
 }
 .btn.primary:hover { background: linear-gradient(180deg, rgba(255, 255, 255, .36), rgba(255, 255, 255, 0) 55%), rgba(0, 104, 209, .9); }
 
-/* "Be exclusive": glass over a blue-violet fill, inside a slowly turning colour ring */
-@property --eo-a { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+/* "Be exclusive": brushed silver with a bright top edge; a light reflection sweeps across it under the pointer */
 .btn.exclusive, .nav-cta {
-  color: #ffffff; border: 1.5px solid transparent;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, 0) 55%) padding-box,
-    linear-gradient(135deg, #0a84ff, #5e5ce6 60%, #bf5af2) padding-box,
-    conic-gradient(from var(--eo-a), #64d2ff, #bf5af2, #ff9f0a, #30d158, #64d2ff) border-box;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 10px 34px rgba(94, 92, 230, .38);
-  animation: eo-spin 5s linear infinite;
+  position: relative; overflow: hidden; isolation: isolate;
+  color: #16181c; border: 1px solid var(--silver-edge);
+  background: linear-gradient(180deg, #fdfdfe 0%, #e4e7eb 34%, #bfc4cb 60%, #dde0e4 84%, #f3f4f6 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), inset 0 -1px 0 rgba(0, 0, 0, .14), 0 8px 26px var(--silver-drop);
 }
-.btn.exclusive:hover { background:
-    linear-gradient(180deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, 0) 55%) padding-box,
-    linear-gradient(135deg, #2b95ff, #6e6cf0 60%, #c86cf5) padding-box,
-    conic-gradient(from var(--eo-a), #64d2ff, #bf5af2, #ff9f0a, #30d158, #64d2ff) border-box;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 14px 44px rgba(94, 92, 230, .5); }
+.btn.exclusive::after, .nav-cta::after {
+  content: ""; position: absolute; top: -50%; bottom: -50%; left: -70%; width: 46%; z-index: -1; pointer-events: none;
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .95) 50%, rgba(255, 255, 255, 0));
+  transform: skewX(-20deg); opacity: 0;
+}
+.btn.exclusive > span, .nav-cta > span { position: relative; }
+.btn.exclusive:hover, .nav-cta:hover {
+  text-decoration: none;
+  background: linear-gradient(180deg, #ffffff 0%, #eceef1 34%, #cdd1d7 60%, #e7e9ec 84%, #f8f8f9 100%);
+  box-shadow: inset 0 1px 0 #ffffff, inset 0 -1px 0 rgba(0, 0, 0, .12), 0 12px 34px var(--silver-drop);
+}
+.btn.exclusive:hover::after, .nav-cta:hover::after { animation: eo-shine 950ms var(--ease) both; }
+@keyframes eo-shine { from { left: -70%; opacity: 1; } to { left: 125%; opacity: 1; } }
 .btn.exclusive.soon { cursor: default; }
-@keyframes eo-spin { to { --eo-a: 360deg; } }
-.nav-cta {
-  flex: none; margin-left: 6px; padding: 7px 13px; border-radius: 999px; font-size: 13px; font-weight: 600; line-height: 1;
-  white-space: nowrap; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 4px 14px rgba(94, 92, 230, .32);
-}
-.nav-cta:hover { text-decoration: none; }
+.nav-cta { flex: none; margin-left: 6px; padding: 7px 13px; border-radius: 999px; font-size: 13px; font-weight: 600; line-height: 1; white-space: nowrap; }
 .cta.center { text-align: center; margin-top: 26px; }
 
 /* ---------- Pro: "Be exclusive" ---------- */
@@ -435,7 +436,6 @@ footer p { margin: 0 0 6px; max-width: 820px; }
 .hero .lead { animation-delay: 180ms; }
 .hero .cta { animation-delay: 280ms; }
 .hero .trailer { animation-delay: 400ms; }
-.hero .cta .btn.exclusive { animation: eo-spin 5s linear infinite; }
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     .section-head, .pro-tile, .rm-item, .card, .trust li, .link-card, .launch { animation: eo-reveal linear both; animation-timeline: view(); animation-range: entry 0% cover 24%; }
@@ -447,5 +447,4 @@ footer p { margin: 0 0 6px; max-width: 820px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero .eyebrow, .hero h1, .hero .lead, .hero .cta, .hero .trailer { animation-name: eo-rise-short; animation-duration: 600ms; }
-  .btn.exclusive, .nav-cta, .hero .cta .btn.exclusive { animation: none; }
 }
