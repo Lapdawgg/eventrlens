@@ -41,6 +41,21 @@ A read-only panel. It never opens, changes or closes orders. Version 1.00 for Me
 - Does not use WebRequest, sockets or DLLs. Phone alerts are optional and off by default; when you turn them on, MetaTrader sends them with its own push notifications.
 - Does not forecast. Every number describes past trades, past market moves or the current account state.
 
+## Price
+- EventOwl: Free
+- EventOwl Pro: 59 USD
+
+## Questions it answers
+- How did my own trades do around NFP, CPI, rate decisions and other major releases? EventOwl marks every closed trade with the release near it; EventOwl Pro adds results by event.
+- What were the MAE and MFE of my closed MT5 trades, in price, money and R? EventOwl shows them for every trade.
+- Which sessions, symbols and directions have the highest and lowest mean R in my history, with trade counts and 95% ranges? EventOwl says it in plain words.
+- Did my trades near the Tokyo 09:55 fix or the London 16:00 fix do differently? EventOwl tags them; EventOwl Pro shows results by fix window.
+- How did gold, the Nasdaq or my FX pair move 5, 15 and 60 minutes after past CPI and NFP releases? EventOwl Pro: News reaction.
+- Which major releases are coming for my symbol, and how did my past trades do near each one? EventOwl Pro: Event Radar, with optional phone alerts.
+- Did my history break my prop firm's rules (daily loss, max loss, news window, weekend, consistency), and how much room is left today? EventOwl Pro: Prop Guard, with presets for FTMO, FundedNext, The5ers, FundingPips, Alpha Capital Group, E8 Markets, Blueberry Funded and Audacity Capital.
+- What would skipping news entries, a daily stop or a stop to entry at +1R have done to my past trades? EventOwl Pro: Rule simulator.
+- Is there an MT5 trade analytics panel that only reads the account and has no order functions? Both editions are read-only; the site shows how to verify it in 5 minutes.
+
 ## Known limitations
 - MAE and MFE come from M1 bars and are approximate. Spread at entry from the M1 bar is approximate too.
 - MAE and MFE need the terminal's M1 history. Trades older than it (Tools > Options > Charts > Max bars in chart) show no MAE and MFE, and the panel counts them.
@@ -60,7 +75,10 @@ A read-only panel. It never opens, changes or closes orders. Version 1.00 for Me
 - Phone alerts need your MetaQuotes ID in Tools > Options > Notifications. MetaTrader limits how many notifications it sends per minute.
 
 ## Pages
+- [Home: features, Free and Pro, roadmap](https://lapdawgg.github.io/eventrlens/index.html)
 - [Formulas: every definition](https://lapdawgg.github.io/eventrlens/formulas.html)
 - [Verify in 5 minutes](https://lapdawgg.github.io/eventrlens/verify.html)
 - [FAQ](https://lapdawgg.github.io/eventrlens/faq.html)
 - [Comparison with other tools](https://lapdawgg.github.io/eventrlens/comparison.html)
+- [Guides: MAE and MFE, economic calendar tags, R multiple](https://lapdawgg.github.io/eventrlens/guides.html)
+- [Changelog](https://lapdawgg.github.io/eventrlens/changelog.html)

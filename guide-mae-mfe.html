@@ -22,17 +22,17 @@
 <link rel="stylesheet" href="style.css">
 
 </head>
-<body>
-<header><div class="wrap"><a class="brand" href="index.html"><img src="logo.svg" width="28" height="28" alt="">EventOwl</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html" aria-current="page">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
+<body class="sub">
+<header><div class="wrap"><a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: dark)" srcset="owl-silver.png"><img src="owl-graphite.png" width="22" height="36" alt=""></picture>EventOwl</a><nav><a href="index.html">Home</a> <a href="formulas.html">Formulas</a> <a href="verify.html">Verify in 5 minutes</a> <a href="faq.html">FAQ</a> <a href="comparison.html">Comparison</a> <a href="guides.html" aria-current="page">Guides</a> <a href="changelog.html">Changelog</a></nav></div></header>
 <main class="wrap">
 <h1>How to measure MAE and MFE of closed MT5 trades</h1>
 <p>To measure MAE and MFE of a closed MetaTrader 5 trade, take the M1 bars from the minute of entry to the minute of exit. For a long trade, MAE = entry price minus the lowest low, and MFE = the highest high minus the entry price. For a short trade it is the other way round, measured on the ask. Divide by the initial risk to get MAE and MFE in R.</p>
 <h2 id="the-steps">The steps</h2>
-<ol><li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li></ol>
+<ol><li>Select the deals of the position with <code>HistorySelectByPosition</code>.</li>
+<li>Take the first entry deal for the direction, and the volume-weighted price of the entry deals as the entry price.</li>
+<li>Take the time of the last exit deal as the exit time.</li>
+<li>Load M1 bars with <code>CopyRates</code> from the entry minute to the exit minute.</li>
+<li>Find the lowest and the highest price on that path.</li></ol>
 <h2 id="mql5-code">MQL5 code</h2>
 <pre><code>// MAE and MFE (in price) of one closed position, from M1 bars.
 // M1 bars are bid prices; for a short trade the ask is estimated as bid + bar spread.
